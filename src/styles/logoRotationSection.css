@@ -1,0 +1,70 @@
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  width: 100%;
+  gap: 40rem;
+  margin-top: -15rem;
+  margin-bottom: 0.02rem;
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rotating-logo {
+  width: 350px;
+  height: 460px;
+  animation: swingLeftRight 8s linear infinite;
+  /*animation-direction: reverse;*/
+}
+
+.trade-button {
+  width: 10rem;
+  padding: 7px 7px;
+}
+
+@keyframes swingLeftRight {
+  0% {
+    transform: translateX(0) rotate(360deg);
+  }
+  25% {
+    transform: translateX(-60px) rotate(-15deg); /* swing to left */
+  }
+  50% {
+    transform: translateX(0) rotate(0deg); /* back to center */
+  }
+  75% {
+    transform: translateX(60px) rotate(15deg); /* swing to right */
+  }
+  100% {
+    transform: translateX(-60px) rotate(17deg); /* back to center */
+  }
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .content-wrapper {
+    flex-direction: column-reverse;
+    gap: 0.1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .rotating-logo {
+    width: 220px;
+    height: 300px;
+  }
+  .trade-button {
+    padding: 14px 14px;
+    font-size: 1.1rem;
+  }
+}

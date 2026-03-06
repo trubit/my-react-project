@@ -1,0 +1,28 @@
+.logo-setup {
+  max-width: 380px;
+  margin-top: 4.5rem;
+}
+
+.img-logo {
+  width: 280px;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.welcome-message,
+.welcome-messages {
+  font-size: "0.9rem";
+  margin-top: -8rem;
+  /*color: white;*/
+}
+
+.login-text {
+  font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+  letter-spacing: -0.8px;
+  background: linear-gradient(90deg, #00d4ff, #00ff9d, #10b981);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

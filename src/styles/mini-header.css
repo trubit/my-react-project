@@ -1,0 +1,34 @@
+.nav-header {
+  background-color: #0d1117;
+  border-bottom: 1px solid #21262d;
+}
+
+.container-nav {
+  color: 00ff9d;
+}
+
+.button-nav {
+  background-color: #00c853;
+  border-color: #00c853;
+}
+
+.nav-instant-green:hover {
+  color: #22c55e !important;
+}
+
+.nav-instant-green:hover {
+  color: #22c55e !important;
+}
+
+/*.truson-navbar-logo {
+  height: 19rem; /* Main size – adjust this to match your original text height 
+  width: auto;
+  object-fit: contain;
+}
+
+/* Make it a bit smaller on mobile if needed *
+@media (max-width: 991px) {
+  .truson-navbar-logo {
+    height: 38px;
+  }
+}*/

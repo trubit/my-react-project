@@ -1,0 +1,28 @@
+.login-background {
+  width: 100%;
+  max-width: 420px;
+}
+
+#form-login {
+  border-radius: 1.25rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  /*background: rgba(17, 24, 39, 0.85);*/
+}
+
+.form-control-email {
+  border-radius: 0.75rem;
+}
+
+.form-control-password {
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+
+.input-group-text {
+  border-radius: 0 0.75rem 0.75rem 0;
+  cursor: pointer;
+}
+
+.button-form {
+  border-radius: 0.75rem;
+}

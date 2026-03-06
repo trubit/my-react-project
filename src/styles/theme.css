@@ -1,0 +1,85 @@
+/* Light mode (default if no class) */
+.light body,
+html.light {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #000000;
+  min-height: 100vh;
+}
+
+/* Dark mode */
+.dark body,
+html.dark {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #f8fafc;
+}
+
+/* Card & container styles */
+.card,
+.login-card {
+  transition: all 0.4s ease;
+}
+
+.light .card,
+.light #login-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  color: #000000;
+}
+
+.dark .card,
+.dark .login-card {
+  background: rgba(30, 41, 59, 0.92);
+  border: 1px solid #334155;
+  backdrop-filter: blur(8px);
+  color: #f8fafc;
+}
+
+/* Form elements */
+.form-control {
+  transition: all 0.4s ease;
+}
+
+.light .form-control {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.dark .form-control {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.light-mode .form-control::placeholder {
+  color: #9ca3af; /* gray placeholder */
+}
+
+.light-mode .text-muted {
+  color: #64748b !important; /* muted gray text */
+}
+
+.light .form-label,
+.light .text-muted {
+  color: #475569;
+  font-weight: 500;
+}
+
+.dark .form-label,
+.dark .text-muted {
+  color: #cbd5e1;
+}
+
+/* Optional: make buttons look better in both modes */
+.btn-success {
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.dark .btn-success {
+  background: #10b981;
+  border-color: #059669;
+}

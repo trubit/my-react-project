@@ -1,0 +1,29 @@
+/* Hide Google Translate UI completely */
+.goog-te-banner-frame,
+.goog-te-gadget,
+.goog-te-combo,
+.goog-te-menu-value,
+.goog-te-menu-frame,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-te-gadget-icon,
+.goog-logo-link,
+.skiptranslate,
+.goog-te-spinner-pos,
+body > .goog-te-spinner {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Prevent body shift when banner is hidden */
+body {
+  top: 0 !important ;
+}
+
+/* Hide any remaining floating elements */
+#gt-nvframe,
+#gt-src-c,
+#gt-res-data,
+#gt-res-content {
+  display: none !important;
+}

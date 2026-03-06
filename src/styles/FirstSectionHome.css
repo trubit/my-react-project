@@ -1,0 +1,35 @@
+.home-page {
+  background-color: #0f172a; /* exact dark background from screenshot */
+  position: relative;
+  overflow: hidden;
+}
+
+.arbitrage-section {
+  margin-top: 8rem; /* space from nav */
+  padding: 2rem;
+}
+
+.display-4 {
+  font-weight: 700;
+  line-height: 70px;
+  font-size: 52.4px;
+  color: #e2e8f0;
+}
+
+.fs-5 {
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.live-crypto-section {
+  background-color: #0f172a; /* same dark background */
+  color: #e2e8f0; /* white text */
+  padding: 2rem 0; /* spacing */
+}
+
+.arbitrage-headline {
+  font-weight: 700;
+
+  line-height: 70px;
+  color: #08a66e;
+}
