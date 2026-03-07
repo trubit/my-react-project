@@ -6,8 +6,8 @@ import LangCurrencyModal from "../Lang&Currency/LangCurrencyModal";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/mini-header.css";
 
-function miniHeader() {
-  const { expanded, setExpanded } = useState(false);
+function miniHeader({ showBreadcrumb = true }) {
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <>
@@ -78,24 +78,25 @@ function miniHeader() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* Blogs breadcrumb */}
-      <div className="bg-secondary border-top border-secondary py-2" style={{}}>
-        <Container fluid>
-          <Nav className="align-items-center gap-3">
-            <Nav.Link
-              as={NavLink}
-              to="/Blogs"
-              className="fw-medium text-white text-decoration-none d-flex align-items-center gap-2"
-              onClick={() => setExpanded(false)}
-            >
-              <i className="bi bi-chevron-left fs-5 text-white nav-instant-green"></i>
-              <span className="fw-bold fs-5 text-white nav-instant-green">
-                Blogs
-              </span>
-            </Nav.Link>
-          </Nav>
-        </Container>
-      </div>
+      {showBreadcrumb && (
+        <div className="bg-secondary border-top border-secondary py-2" style={{}}>
+          <Container fluid>
+            <Nav className="align-items-center gap-3">
+              <Nav.Link
+                as={NavLink}
+                to="/Blogs"
+                className="fw-medium text-white text-decoration-none d-flex align-items-center gap-2"
+                onClick={() => setExpanded(false)}
+              >
+                <i className="bi bi-chevron-left fs-5 text-white nav-instant-green"></i>
+                <span className="fw-bold fs-5 text-white nav-instant-green">
+                  Blogs
+                </span>
+              </Nav.Link>
+            </Nav>
+          </Container>
+        </div>
+      )}
     </>
   );
 }
