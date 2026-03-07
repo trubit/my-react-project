@@ -19,6 +19,7 @@ const blogSlides = [
     mediaTitle: "Bot Wallet",
     mediaImage: TrusonXBot,
     mediaAlt: "TrusonXchanger bot wallet",
+    link: "/Xgolden",
     title: "Introducing the Bot Wallet: Simpler, Smarter, and Built for You",
     description:
       "Discover the new TrusonXchanger Bot Wallet - a faster, safer way to buy packages, reinvest profits, and support your team directly from one secure wallet.",
@@ -31,6 +32,7 @@ const blogSlides = [
     mediaTitle: "FinCen",
     mediaImage: TrusonFinCen,
     mediaAlt: "Truson FinCen",
+    link: "/FinCen",
     title: "FinCen Compliance: Clearer, Stronger, and Ready for Growth",
     description:
       "Stay ahead with our updated compliance flow designed to keep your funds protected and your operations seamless.",
@@ -43,6 +45,7 @@ const blogSlides = [
     mediaTitle: "Package",
     mediaImage: TrusonPackage,
     mediaAlt: "Truson free package",
+    link: "/FreePackage",
     title: "Start Faster with the Free Package: Simple, Secure, and Smooth",
     description:
       "Kickstart your journey with an easy onboarding flow, built-in guidance, and trusted security from day one.",
@@ -55,6 +58,7 @@ const blogSlides = [
     mediaTitle: "Buy & Sell",
     mediaImage: TrusonBuySell,
     mediaAlt: "Truson buy and sell",
+    link: "/GoldenBuySell",
     title: "Golden Buy & Sell: Faster Trades with Smarter Controls",
     description:
       "Trade confidently with improved pricing, instant fills, and a cleaner experience tailored for serious traders.",
@@ -154,18 +158,25 @@ function Blogs() {
             >
               {blogSlides.map((slide) => (
                 <div className="blogs-slide" key={slide.id}>
-                  <article
-                    className="blogs-card blogs-card--media"
-                    style={{ "--media-image": `url(${slide.mediaImage})` }}
-                    role="img"
-                    aria-label={slide.mediaAlt}
-                  />
+                  <NavLink
+                    to={slide.link}
+                    className="blogs-card-link"
+                    aria-label={`Open ${slide.title}`}
+                  >
+                    <article
+                      className="blogs-card blogs-card--media"
+                      style={{ "--media-image": `url(${slide.mediaImage})` }}
+                      aria-hidden="true"
+                    />
+                  </NavLink>
 
-                  <article className="blogs-card blogs-card--content">
-                    <h3 className="blogs-title">{slide.title}</h3>
-                    <p className="blogs-description">{slide.description}</p>
-                    <p className="blogs-date">{slide.date}</p>
-                  </article>
+                  <NavLink to={slide.link} className="blogs-card-link">
+                    <article className="blogs-card blogs-card--content">
+                      <h3 className="blogs-title">{slide.title}</h3>
+                      <p className="blogs-description">{slide.description}</p>
+                      <p className="blogs-date">{slide.date}</p>
+                    </article>
+                  </NavLink>
                 </div>
               ))}
             </div>
