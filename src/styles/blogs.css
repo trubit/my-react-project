@@ -45,6 +45,7 @@
   color: inherit;
   display: block;
   height: 100%;
+  cursor: pointer;
 }
 
 .blogs-card-link .blogs-card {
