@@ -7,7 +7,7 @@ function useLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,17 +33,21 @@ function useLogin() {
       // Fake delay + simple validation
       await new Promise((resolve) => setTimeout(resolve, 1200));
 
-      if (!email.includes("@" && "com")) {
-        setError("Please Enter a valid email address");
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        setError("Please enter a valid email address");
         setIsLoading(false);
-      } else if (password.length < 6) {
+        return;
+      }
+
+      if (password.length < 6) {
         setError("Password must be at least 6 characters");
         setIsLoading(false);
-      } else {
-        setSuccess("Login Successfully!(Demo Mode)");
-        setTimeout(() => navigate("/Dashboard"), 800);
+        return;
       }
-      isLoading(false);
+
+      setSuccess("Login successfully! (Demo Mode)");
+      setIsLoading(false);
+      setTimeout(() => navigate("/Dashboard"), 800);
       return;
     }
 

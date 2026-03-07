@@ -74,7 +74,7 @@ function Login() {
                       size="md"
                       onChange={(e) => setEmail(e.target.value)}
                       disabled={isLoading}
-                      className="bg-dark border-secondary-subtle text-white form-control-email"
+                      className="form-control-email"
                       style={{}}
                     />
                   </Form.Group>
@@ -88,12 +88,12 @@ function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         disabled={isLoading}
-                        className="bg-dark border-secondary-subtle text-white border-end-0 form-control-password"
+                        className="border-end-0 form-control-password"
                         style={{}}
                       />
 
                       <InputGroup.Text
-                        className="bg-dark border-secondary-subtle text-white input-group-text"
+                        className="input-group-text"
                         style={{}}
                         onClick={togglePasswordVisibility}
                       >
@@ -115,7 +115,7 @@ function Login() {
                       label={<span className=" small">Remember me</span>}
                     />
                     <Link
-                      to="/forget-password"
+                      to="/forgot-password"
                       className="text-success small fw-medium text-decoration-none"
                     >
                       Forgot Password?

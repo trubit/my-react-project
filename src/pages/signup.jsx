@@ -72,7 +72,7 @@ function signup() {
                   onChange={(e) => setEmail(e.target.value)}
                   isInvalid={!!errors.email}
                   disabled={isSubmitting}
-                  className="bg-dark border-secondary-subtle text-white form-control-email"
+                  className="form-control-email"
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.email}
@@ -90,10 +90,10 @@ function signup() {
                     onChange={(e) => setPassword(e.target.value)}
                     isInvalid={!!errors.password}
                     disabled={isSubmitting}
-                    className="bg-dark border-secondary-subtle border-end-0 text-white form-control-password"
+                    className="border-end-0 form-control-password"
                   />
                   <InputGroup.Text
-                    className="bg-dark border-secondary-subtle text-white input-group-text"
+                    className="input-group-text"
                     variant="outline-secondary"
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={isSubmitting}
@@ -117,11 +117,11 @@ function signup() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     isInvalid={!!errors.confirmPassword}
                     disabled={isSubmitting}
-                    className="bg-dark border-secondary-subtle border-end-0 text-white form-control-password"
+                    className="border-end-0 form-control-password"
                   />
                   <InputGroup.Text
                     variant="outline-secondary"
-                    className="bg-dark border-secondary-subtle text-white input-group-text"
+                    className="input-group-text"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     disabled={isSubmitting}
                   >
@@ -149,7 +149,7 @@ function signup() {
                   size="md"
                   onChange={(e) => setReferralId(e.target.value)}
                   disabled={isSubmitting}
-                  className="bg-dark border-secondary-subtle text-white form-control-email"
+                  className="form-control-email"
                 />
               </Form.Group>
 

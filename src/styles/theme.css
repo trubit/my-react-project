@@ -20,17 +20,19 @@ html.dark {
 }
 
 .light .card,
-.light #login-card {
+.light #form-login,
+.light #card-border {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  color: #000000;
+  color: #0f172a;
 }
 
 .dark .card,
-.dark .login-card {
-  background: rgba(30, 41, 59, 0.92);
+.dark #form-login,
+.dark #card-border {
+  background: rgba(30, 41, 59, 0.78);
   border: 1px solid #334155;
   backdrop-filter: blur(8px);
   color: #f8fafc;
@@ -54,18 +56,64 @@ html.dark {
   color: #f8fafc;
 }
 
-.light-mode .form-control::placeholder {
+.light .input-group-text {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.dark .input-group-text {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.light .main-login-background {
+  color: #0f172a;
+}
+
+.light .main-login-background h1,
+.light .main-login-background h2,
+.light .main-login-background h3,
+.light .main-login-background h4,
+.light .main-login-background h5,
+.light .main-login-background h6,
+.light .main-login-background p,
+.light .main-login-background label,
+.light .main-login-background .form-label,
+.light .main-login-background .form-check-label,
+.light .main-login-background .small {
+  color: #0f172a;
+}
+
+.dark .main-login-background {
+  color: #f8fafc;
+}
+
+.light .form-control::placeholder {
   color: #9ca3af; /* gray placeholder */
 }
 
-.light-mode .text-muted {
-  color: #64748b !important; /* muted gray text */
+.light .text-muted {
+  color: #0f172a !important; /* force readable text in light mode */
 }
 
 .light .form-label,
 .light .text-muted {
-  color: #475569;
+  color: #0f172a;
   font-weight: 500;
+}
+
+/* Ensure auth cards stay light even if dark utility classes appear */
+html.light #form-login,
+html.light #card-border {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html.light #form-login .text-success,
+html.light #card-border .text-success {
+  color: #16a34a !important;
 }
 
 .dark .form-label,
@@ -82,4 +130,30 @@ html.dark {
 .dark .btn-success {
   background: #10b981;
   border-color: #059669;
+}
+
+/* Light mode fixes for auth forms that still use dark utility classes */
+.light .main-login-background .bg-dark,
+.light .main-login-background .input-group-text,
+.light .main-login-background .form-control {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.light .main-login-background .text-white {
+  color: #0f172a !important;
+}
+
+.light .main-login-background .border-secondary-subtle {
+  border-color: #cbd5e1 !important;
+}
+
+.light .main-login-background .form-check-input {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.light .main-login-background .form-check-input:checked {
+  background-color: #22c55e;
+  border-color: #16a34a;
 }
