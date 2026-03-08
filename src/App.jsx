@@ -17,6 +17,7 @@ import Terms from "./pages/terms";
 import Dashborad from "./pages/Dashboard";
 
 import Blogs from "./Blogs-page/blogs";
+import BlogUpdate from "./Components/BlogUpdate";
 import FinCen from "./Blogs-page/Fincen";
 import FreePackage from "./Blogs-page/FreePackage";
 import GoldenBuySell from "./Blogs-page/GoldenBuySell";
@@ -40,6 +41,7 @@ function App() {
     "/Dashboard",
     "/trade",
     "/Blogs",
+    "/BlogUpdate",
     "/FreePackage",
     "/FinCen",
     "/GoldenBuySell",
@@ -66,6 +68,7 @@ function App() {
         <Route path="/trade" element={<Trade />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/Blogs" element={<Blogs />} />
+        <Route path="/BlogUpdate" element={<BlogUpdate />} />
         <Route path="/FinCen" element={<FinCen />} />
         <Route path="/FreePackage" element={<FreePackage />} />
         <Route path="/GoldenBuySell" element={<GoldenBuySell />} />
