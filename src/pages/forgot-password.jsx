@@ -5,7 +5,7 @@ import ToggleTheme from "../Components/toggleTheme";
 import AuthBranding from "../Components/authBranding";
 import "../styles/login.css";
 
-function ForgotPassword() {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -37,7 +37,10 @@ function ForgotPassword() {
 
         <div className="d-flex align-items-center justify-content-center p-3 main-login-background">
           <div className="login-background">
-            <Card className="border-0 shadow-xl overflow-hidden" id="form-login">
+            <Card
+              className="border-0 shadow-xl overflow-hidden"
+              id="form-login"
+            >
               <Card.Body className="p-4 p-md-5">
                 <h3 className="text-center fw-bold mb-2">Forgot Password</h3>
                 <p className="text-center mb-4 mb-md-5">
@@ -53,9 +56,7 @@ function ForgotPassword() {
 
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-4">
-                    <Form.Label className="fw-medium">
-                      Email address
-                    </Form.Label>
+                    <Form.Label className="fw-medium">Email address</Form.Label>
                     <Form.Control
                       type="email"
                       placeholder="name@example.com"
@@ -106,6 +107,6 @@ function ForgotPassword() {
       </div>
     </div>
   );
-}
+};
 
 export default ForgotPassword;

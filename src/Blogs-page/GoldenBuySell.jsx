@@ -1,11 +1,11 @@
 import MiniHeader from "../header-navigation/mini-header";
 
-function GoldenBuySell() {
+const GoldenBuySell = () => {
   return (
     <>
       <MiniHeader />
     </>
   );
-}
+};
 
 export default GoldenBuySell;

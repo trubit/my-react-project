@@ -1,5 +1,5 @@
-function Sport() {
+const Spot = () => {
   return <></>;
-}
+};
 
-export default Sport;
+export default Spot;

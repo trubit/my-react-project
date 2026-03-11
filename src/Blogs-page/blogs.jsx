@@ -10,7 +10,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/mini-header.css";
 import "../styles/blogs.css";
 
-function Blogs() {
+const Blogs = () => {
   const [expanded, setExpanded] = useState(false);
   const { visiblePosts } = useBlogPosts();
   const { activeIndex, setActiveIndex } = useBlogs(visiblePosts);
@@ -112,6 +112,6 @@ function Blogs() {
       </div>
     </section>
   );
-}
+};
 
 export default Blogs;

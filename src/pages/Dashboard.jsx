@@ -1,5 +1,5 @@
-function Dashborad() {
+const Dashboard = () => {
   return <></>;
-}
+};
 
-export default Dashborad;
+export default Dashboard;

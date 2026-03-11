@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Sun, Moon } from "react-bootstrap-icons";
 import "../styles/toggleTheme.css";
 
-function toggleTheme() {
+const toggleTheme = () => {
   // Start with dark mode by default (you can change to false for light)
   const [isDark, setIsDark] = useState(true);
 
@@ -30,6 +30,6 @@ function toggleTheme() {
       {isDark ? <Sun size={24} /> : <Moon size={24} />}
     </button>
   );
-}
+};
 
 export default toggleTheme;

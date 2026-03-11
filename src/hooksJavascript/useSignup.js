@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function useSignup() {
+const useSignup = () => {
   const navigate = useNavigate();
 
   // Form states
@@ -131,6 +131,6 @@ function useSignup() {
     referralId,
     setReferralId,
   };
-}
+};
 
 export default useSignup;

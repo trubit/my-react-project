@@ -1,11 +1,11 @@
 import MiniHeader from "../header-navigation/mini-header";
 
-function FreePackage() {
+const FreePackage = () => {
   return (
     <>
       <MiniHeader />
     </>
   );
-}
+};
 
 export default FreePackage;

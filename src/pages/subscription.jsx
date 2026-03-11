@@ -1,5 +1,5 @@
-function Subscription() {
+const Subscription = () => {
   return <></>;
-}
+};
 
 export default Subscription;

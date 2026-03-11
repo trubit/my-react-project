@@ -7,7 +7,7 @@ import "../styles/LiveCryptoHomePage.css";
 import TrusonCoins from "./trusonCoins";
 import useLiveCryptoHomePage from "../hooksJavascript/useLiveCryptoHomePage";
 
-function LiveCryptoHomePage() {
+const LiveCryptoHomePage = () => {
   // All logic is now in the hooksjavascript
   const {
     ticker,
@@ -164,6 +164,6 @@ function LiveCryptoHomePage() {
       </div>
     </div>
   );
-}
+};
 
 export default LiveCryptoHomePage;

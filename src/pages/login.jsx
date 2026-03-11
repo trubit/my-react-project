@@ -13,7 +13,7 @@ import AuthBranding from "../Components/authBranding";
 import "../styles/login.css";
 import useLogin from "../hooksJavascript/useLogin";
 
-function Login() {
+const Login = () => {
   // All logic is now in the hooksjavascript
   const {
     email,
@@ -162,6 +162,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

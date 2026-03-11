@@ -30,7 +30,7 @@ import Support from "./Components/Support";
 
 import "./App.css";
 
-function App() {
+const App = () => {
   const location = useLocation();
 
   const hideHeader = [
@@ -79,6 +79,6 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;

@@ -6,7 +6,7 @@ import useSignup from "../hooksJavascript/useSignup";
 import AuthBranding from "../Components/authBranding";
 import ToggleTheme from "../Components/toggleTheme";
 
-function signup() {
+const Signup = () => {
   const {
     email,
     setEmail,
@@ -214,6 +214,6 @@ function signup() {
       </div>
     </div>
   );
-}
+};
 
-export default signup;
+export default Signup;

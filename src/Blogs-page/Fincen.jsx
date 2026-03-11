@@ -1,11 +1,11 @@
 import MiniHeader from "../header-navigation/mini-header";
 
-function finCen() {
+const finCen = () => {
   return (
     <>
       <MiniHeader />
     </>
   );
-}
+};
 
 export default finCen;

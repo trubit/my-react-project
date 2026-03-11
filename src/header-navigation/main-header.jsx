@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import LangCurrencyModal from "../Lang&Currency/LangCurrencyModal";
 import "../styles/header.css";
 
-function mainHeader() {
+const mainHeader = () => {
   const { expanded, setExpanded } = useState(false);
   return (
     <Navbar
@@ -115,6 +115,6 @@ function mainHeader() {
       </Container>
     </Navbar>
   );
-}
+};
 
 export default mainHeader;

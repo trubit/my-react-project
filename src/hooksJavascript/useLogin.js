@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function useLogin() {
+const useLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,6 +99,6 @@ function useLogin() {
     handleLogin,
     togglePasswordVisibility,
   };
-}
+};
 
 export default useLogin;

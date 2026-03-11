@@ -1,7 +1,7 @@
 import mainLogo from "../assets/mainLogo.png";
 import "../styles/authBranding.css";
 
-function authBranding() {
+const authBranding = () => {
   return (
     <div className="d-none d-md-block">
       {/* Desktop content */}
@@ -40,6 +40,6 @@ function authBranding() {
       </div>
     </div>
   );
-}
+};
 
 export default authBranding;

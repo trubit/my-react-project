@@ -4,7 +4,7 @@ import getCurrency from "../api/currencyApi";
 
 const AppContext = createContext();
 
-export function AppProvider({ children }) {
+export const AppProvider = ({ children }) => {
   const [language, setLanguage] = useState(
     localStorage.getItem("language") || "en",
   );
@@ -63,6 +63,6 @@ export function AppProvider({ children }) {
       {children}
     </AppContext.Provider>
   );
-}
+};
 
 export const useAppContext = () => useContext(AppContext);

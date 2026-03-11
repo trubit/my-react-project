@@ -1,5 +1,5 @@
-function Support() {
+const Support = () => {
   return <></>;
-}
+};
 
 export default Support;

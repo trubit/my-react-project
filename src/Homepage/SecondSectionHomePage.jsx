@@ -6,7 +6,7 @@ import TrusonFinCen from "../assets/truson-fin-cen.png";
 import TrusonPackage from "../assets/truson-package.png";
 import TrusonXBot from "../assets/truson-x-bot.png";
 
-function SecondSectionHomePage() {
+const SecondSectionHomePage = () => {
   const cards = [
     { image: TrusonBuySell, link: "/GoldenBuySell" },
     { image: TrusonFinCen, link: "/FinCen" },
@@ -41,6 +41,6 @@ function SecondSectionHomePage() {
       </Container>
     </div>
   );
-}
+};
 
 export default SecondSectionHomePage;

@@ -1,5 +1,5 @@
-function Futures() {
+const Futures = () => {
   return <></>;
-}
+};
 
 export default Futures;

@@ -1,5 +1,5 @@
-function Artbitrage() {
+const Artbitrage = () => {
   return <></>;
-}
+};
 
 export default Artbitrage;

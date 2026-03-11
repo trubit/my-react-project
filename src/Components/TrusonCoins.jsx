@@ -1,7 +1,7 @@
 // src/components/TrusonCoins.jsx
 import { useState, useEffect } from "react";
 
-function TrusonCoins() {
+const TrusonCoins = () => {
   const [price, setPrice] = useState(4.2774); // start price like Tron
   const [change24h, setChange24h] = useState(5.0); // start 24h change
   const [volume, setVolume] = useState(1082094543); // start volume
@@ -46,6 +46,6 @@ function TrusonCoins() {
       <td>{volume.toLocaleString()}</td>
     </tr>
   );
-}
+};
 
 export default TrusonCoins;

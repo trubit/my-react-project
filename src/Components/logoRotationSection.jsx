@@ -3,7 +3,7 @@ import "../styles/logoRotationSection.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function logoRotatingSection() {
+const logoRotatingSection = () => {
   return (
     <div className="rotating-section">
       <div className="container">
@@ -32,6 +32,6 @@ function logoRotatingSection() {
       </div>
     </div>
   );
-}
+};
 
 export default logoRotatingSection;

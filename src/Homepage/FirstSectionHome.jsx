@@ -3,7 +3,7 @@ import LogoRotatingSection from "../Components/logoRotationSection";
 import "../styles/FirstSectionHome.css";
 import { Card } from "react-bootstrap";
 
-function FirstSectionHome() {
+const FirstSectionHome = () => {
   return (
     <Card className="home-page bg-dark text-white min-vh-100 d-flex flex-column">
       <div
@@ -33,6 +33,6 @@ function FirstSectionHome() {
       </div>
     </Card>
   );
-}
+};
 
 export default FirstSectionHome;

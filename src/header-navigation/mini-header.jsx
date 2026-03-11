@@ -6,7 +6,7 @@ import LangCurrencyModal from "../Lang&Currency/LangCurrencyModal";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/mini-header.css";
 
-function miniHeader({ showBreadcrumb = true }) {
+const miniHeader = ({ showBreadcrumb = true }) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -79,7 +79,10 @@ function miniHeader({ showBreadcrumb = true }) {
         </Container>
       </Navbar>
       {showBreadcrumb && (
-        <div className="bg-secondary border-top border-secondary py-2" style={{}}>
+        <div
+          className="bg-secondary border-top border-secondary py-2"
+          style={{}}
+        >
           <Container fluid>
             <Nav className="align-items-center gap-3">
               <Nav.Link
@@ -99,6 +102,6 @@ function miniHeader({ showBreadcrumb = true }) {
       )}
     </>
   );
-}
+};
 
 export default miniHeader;

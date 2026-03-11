@@ -31,7 +31,7 @@ const COINS = [
   "filecoin", // 21 coins
 ];
 
-function useLiveCryptoHomePage() {
+const useLiveCryptoHomePage = () => {
   const [ticker, setTicker] = useState({});
   const [marketCap, setMarketCap] = useState("Loading...");
   const [tradingVolume, setTradingVolume] = useState("Loading...");
@@ -152,6 +152,6 @@ function useLiveCryptoHomePage() {
     change24h,
     isPositive,
   };
-}
+};
 
 export default useLiveCryptoHomePage;

@@ -4,7 +4,7 @@ import { Button, Modal, Tabs, Tab, ListGroup } from "react-bootstrap";
 import { useAppContext } from "./AppContext";
 import "../styles/LangCurrencyModal.css";
 
-function LangCurrencyModal() {
+const LangCurrencyModal = () => {
   const {
     currency,
     setCurrency,
@@ -167,6 +167,6 @@ function LangCurrencyModal() {
       </Modal>
     </>
   );
-}
+};
 
 export default LangCurrencyModal;
