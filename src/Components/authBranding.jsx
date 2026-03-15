@@ -1,6 +1,7 @@
 import mainLogo from "../assets/mainLogo.png";
 import "../styles/authBranding.css";
 
+// Left-side branding panel for auth screens.
 const authBranding = () => {
   return (
     <div className="d-none d-md-block">

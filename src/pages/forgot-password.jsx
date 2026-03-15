@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 import ToggleTheme from "../Components/toggleTheme";
 import AuthBranding from "../Components/authBranding";
 import "../styles/login.css";
+import { requestPasswordReset } from "../api/auth";
 
+// Page where users request a reset link via email.
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Step 1: request a reset link for the email address.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -23,10 +26,14 @@ const ForgotPassword = () => {
 
     setIsLoading(true);
 
-    // Demo-only: simulate request
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setSuccess("Password reset link sent! Check your inbox.");
-    setIsLoading(false);
+    try {
+      await requestPasswordReset(email);
+      setSuccess("Password reset link sent! Check your inbox.");
+    } catch (err) {
+      setError(err.message || "Unable to send reset link. Try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

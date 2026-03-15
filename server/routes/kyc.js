@@ -7,6 +7,7 @@ import {
 } from "../controllers/kycController.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
+// KYC routes (user + admin).
 const router = express.Router();
 
 router.get("/me", requireAuth, getMyKyc);

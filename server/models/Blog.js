@@ -1,5 +1,6 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
+// Blog content stored in MongoDB.
 const BlogSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },

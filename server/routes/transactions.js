@@ -5,6 +5,7 @@ import {
 } from "../controllers/transactionsController.js";
 import { requireAuth } from "../middleware/auth.js";
 
+// Transaction routes (authenticated).
 const router = express.Router();
 
 router.get("/", requireAuth, listTransactions);

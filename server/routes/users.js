@@ -6,6 +6,7 @@ import {
 } from "../controllers/usersController.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
+// User management routes.
 const router = express.Router();
 
 router.get("/", requireAuth, requireRole("admin"), listUsers);

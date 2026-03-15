@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import MiniHeader from "../header-navigation/mini-header";
 
+// Terms and Conditions page.
 const Terms = ({ showBreadcrumb = false }) => {
   return (
     <>

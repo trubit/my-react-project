@@ -1,5 +1,6 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
+// Subscription metadata for paid plans.
 const SubscriptionSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

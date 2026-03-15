@@ -1,5 +1,6 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
+// Customer support ticket with replies.
 const SupportTicketSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

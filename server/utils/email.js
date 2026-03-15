@@ -1,31 +1,40 @@
 import nodemailer from "nodemailer";
 
-const SMTP_HOST = process.env.SMTP_HOST;
-const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
-const SMTP_SECURE = process.env.SMTP_SECURE === "true";
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_FROM = process.env.SMTP_FROM || "TrusonXchanger <no-reply@trusonxchanger.com>";
+// Pull SMTP config at send time so env vars are already loaded.
+const getSmtpConfig = () => ({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT || 587),
+  secure: process.env.SMTP_SECURE === "true",
+  user: process.env.SMTP_USER,
+  pass: process.env.SMTP_PASS,
+  from:
+    process.env.SMTP_FROM ||
+    "TrusonXchanger <no-reply@trusonxchanger.com>",
+});
 
+// Build a transporter only if SMTP is configured.
 const buildTransporter = () => {
-  if (!SMTP_HOST) {
+  const { host, port, secure, user, pass } = getSmtpConfig();
+  if (!host) {
     return null;
   }
 
   return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: SMTP_SECURE,
-    auth: SMTP_USER
+    host,
+    port,
+    secure,
+    auth: user
       ? {
-          user: SMTP_USER,
-          pass: SMTP_PASS,
+          user,
+          pass,
         }
       : undefined,
   });
 };
 
 export const sendEmail = async ({ to, subject, text, html }) => {
+  // Uses SMTP settings to send mail; skips if not configured.
+  const { from } = getSmtpConfig();
   const transporter = buildTransporter();
   if (!transporter) {
     console.log("SMTP not configured. Email skipped:", { to, subject });
@@ -33,7 +42,7 @@ export const sendEmail = async ({ to, subject, text, html }) => {
   }
 
   await transporter.sendMail({
-    from: SMTP_FROM,
+    from,
     to,
     subject,
     text,

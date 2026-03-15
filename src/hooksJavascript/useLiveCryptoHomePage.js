@@ -31,6 +31,7 @@ const COINS = [
   "filecoin", // 21 coins
 ];
 
+// Hook that polls CoinGecko for live market data.
 const useLiveCryptoHomePage = () => {
   const [ticker, setTicker] = useState({});
   const [marketCap, setMarketCap] = useState("Loading...");

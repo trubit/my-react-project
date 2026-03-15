@@ -1,3 +1,4 @@
+// Placeholder for support UI.
 const Support = () => {
   return <></>;
 };

@@ -3,6 +3,7 @@ import "../styles/logoRotationSection.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+// CTA section with rotating logo and signup button.
 const logoRotatingSection = () => {
   return (
     <div className="rotating-section">

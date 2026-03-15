@@ -1,6 +1,7 @@
 // src/components/TrusonCoins.jsx
 import { useState, useEffect } from "react";
 
+// Demo row that simulates a live coin ticker.
 const TrusonCoins = () => {
   const [price, setPrice] = useState(4.2774); // start price like Tron
   const [change24h, setChange24h] = useState(5.0); // start 24h change

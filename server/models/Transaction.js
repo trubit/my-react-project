@@ -1,5 +1,6 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
+// Deposit/withdrawal/transfer records.
 const TransactionSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

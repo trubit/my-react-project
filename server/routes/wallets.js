@@ -6,6 +6,7 @@ import {
 } from "../controllers/walletsController.js";
 import { requireAuth } from "../middleware/auth.js";
 
+// Wallet routes (authenticated).
 const router = express.Router();
 
 router.get("/", requireAuth, listWallets);

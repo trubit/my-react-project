@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Axios instances for third-party APIs with base URLs from env.
 export const coingeckoAxios = axios.create({
   baseURL: import.meta.env.VITE_COINGECKO_API_URL, // This reads from .env file
   timeout: 15000,

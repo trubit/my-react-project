@@ -4,6 +4,7 @@ import getCurrency from "../api/currencyApi";
 
 const AppContext = createContext();
 
+// Global app context for language/currency preferences.
 export const AppProvider = ({ children }) => {
   const [language, setLanguage] = useState(
     localStorage.getItem("language") || "en",

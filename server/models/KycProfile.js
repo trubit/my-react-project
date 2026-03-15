@@ -1,5 +1,6 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
+// KYC profile data for a user.
 const KycProfileSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

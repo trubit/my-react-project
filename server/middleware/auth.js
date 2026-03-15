@@ -1,6 +1,7 @@
- import User from "../models/User.js";
+import User from "../models/User.js";
 import { verifyToken } from "../utils/jwt.js";
 
+// Verifies JWT and loads the user for protected routes.
 export const requireAuth = async (req, res, next) => {
   try {
     const header = req.headers.authorization || "";
@@ -22,6 +23,7 @@ export const requireAuth = async (req, res, next) => {
   }
 };
 
+// Role-based guard for admin-only endpoints.
 export const requireRole =
   (...roles) =>
   (req, res, next) => {

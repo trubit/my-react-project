@@ -7,6 +7,7 @@ import {
 } from "../controllers/subscriptionsController.js";
 import { requireAuth } from "../middleware/auth.js";
 
+// Subscription routes (authenticated).
 const router = express.Router();
 
 router.get("/", requireAuth, listSubscriptions);

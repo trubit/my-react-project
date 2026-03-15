@@ -6,7 +6,8 @@ import LangCurrencyModal from "../Lang&Currency/LangCurrencyModal";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/mini-header.css";
 
-const miniHeader = ({ showBreadcrumb = true }) => {
+// Compact header used on blog/update pages.
+const MiniHeader = ({ showBreadcrumb = true }) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -104,4 +105,4 @@ const miniHeader = ({ showBreadcrumb = true }) => {
   );
 };
 
-export default miniHeader;
+export default MiniHeader;

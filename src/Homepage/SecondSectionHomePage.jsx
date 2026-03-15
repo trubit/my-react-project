@@ -7,6 +7,7 @@ import TrusonXBot from "../assets/truson-x-bot.png";
 // Optional backend fetch (uncomment when ready)
 // import { useEffect, useState } from "react";
 
+// Homepage section showing the latest blog updates.
 const SecondSectionHomePage = () => {
   const { visiblePosts } = useBlogPosts();
   const latestPosts = visiblePosts.slice(0, 4);

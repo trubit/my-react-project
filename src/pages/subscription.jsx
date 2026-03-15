@@ -1,3 +1,4 @@
+// Placeholder page for subscriptions.
 const Subscription = () => {
   return <></>;
 };

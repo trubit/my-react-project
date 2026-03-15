@@ -7,6 +7,7 @@ import { useBlogPosts } from "../hooksJavascript/useBlogPosts";
 
 import "../styles/blogs.css";
 
+// Admin blog update page (form + preview).
 const BlogUpdatePage = () => {
   const { posts, setPosts, visiblePosts } = useBlogPosts();
   const activePost = visiblePosts[0] ?? null;

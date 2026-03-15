@@ -1,10 +1,13 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
+// Core user profile and auth fields.
 const UserSchema = new mongoose.Schema(
   {
     name: { type: String, trim: true, default: "" },
     email: { type: String, required: true, unique: true, lowercase: true },
-    passwordHash: { type: String, required: true },
+    passwordHash: { type: String, required: true, select: false },
+    resetPasswordTokenHash: { type: String, default: "", select: false },
+    resetPasswordExpires: { type: Date },
     role: { type: String, enum: ["user", "admin"], default: "user" },
     phone: { type: String, default: "" },
     referralId: { type: String, default: "" },
@@ -14,9 +17,6 @@ const UserSchema = new mongoose.Schema(
       enum: ["unverified", "pending", "approved", "rejected"],
       default: "unverified",
     },
-    emailVerified: { type: Boolean, default: false },
-    emailVerificationTokenHash: { type: String, default: "" },
-    emailVerificationExpires: { type: Date },
   },
   { timestamps: true }
 );

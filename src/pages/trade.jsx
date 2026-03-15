@@ -1,3 +1,4 @@
+// Placeholder trade landing page.
 const Trade = () => {
   return (
     <>

@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Sun, Moon } from "react-bootstrap-icons";
 import "../styles/toggleTheme.css";
 
-const toggleTheme = () => {
+// Theme toggle button for light/dark mode.
+const ToggleTheme = () => {
   // Start with dark mode by default (you can change to false for light)
   const [isDark, setIsDark] = useState(true);
 
@@ -32,4 +33,4 @@ const toggleTheme = () => {
   );
 };
 
-export default toggleTheme;
+export default ToggleTheme;

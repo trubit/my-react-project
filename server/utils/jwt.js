@@ -1,5 +1,6 @@
- import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
+// Helpers to sign/verify JWTs using env-configured secrets.
 const JWT_SECRET = process.env.JWT_SECRET || "change-me";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "7d";
 

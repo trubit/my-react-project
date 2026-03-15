@@ -13,6 +13,7 @@ const emptyForm = {
 
 export const MAX_IMAGE_SIZE_MB = 3;
 
+// Hook for managing the blog update form state + image uploads.
 export const useBlogUpdateForm = ({
   posts,
   setPosts,

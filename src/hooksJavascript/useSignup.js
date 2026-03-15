@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api/auth";
 
-const API_BASE_URL =
-  import.meta.env.VITE_TRUSON_API_URL ||
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:5000";
-
+// Signup state + validation + submit handler used by the Signup page.
 const useSignup = () => {
   const navigate = useNavigate();
 
@@ -62,7 +59,7 @@ const useSignup = () => {
     return newErrors;
   };
 
-  // Handle form submission
+  // Sends signup data to the backend when validation passes.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -77,24 +74,14 @@ const useSignup = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          referralId: referralId.trim() || undefined,
-        }),
+      const payload = await registerUser({
+        email,
+        password,
+        referralId: referralId.trim() || undefined,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Registration failed");
-      }
-
       setSuccessMessage(
-        "Registration successful! Check your email to verify before logging in. Redirecting to login..."
+        payload.message || "Registration successful! Redirecting to login..."
       );
       setEmail("");
       setPassword("");

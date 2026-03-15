@@ -7,6 +7,7 @@ import {
 } from "../controllers/supportController.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
+// Support ticket routes.
 const router = express.Router();
 
 router.get("/", requireAuth, listTickets);

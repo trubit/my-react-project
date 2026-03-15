@@ -7,6 +7,7 @@ import "../styles/LiveCryptoHomePage.css";
 import TrusonCoins from "./trusonCoins";
 import useLiveCryptoHomePage from "../hooksJavascript/useLiveCryptoHomePage";
 
+// Live crypto dashboard section for the homepage.
 const LiveCryptoHomePage = () => {
   // All logic is now in the hooksjavascript
   const {

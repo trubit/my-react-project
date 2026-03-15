@@ -133,6 +133,7 @@ const readStoredPosts = () => {
   }
 };
 
+// Hook to manage blog posts in localStorage and compute visible posts.
 export const useBlogPosts = () => {
   const [posts, setPosts] = useState(() => readStoredPosts());
   const visiblePosts = useMemo(() => getVisiblePosts(posts), [posts]);

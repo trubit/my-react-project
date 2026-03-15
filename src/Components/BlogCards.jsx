@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 
+// Blog display variants used on the blogs page.
 export const BlogCarousel = ({ posts, activeIndex, onSelectIndex }) => {
   if (!posts.length) {
     return <div className="blogs-admin-note">No blog posts yet.</div>;

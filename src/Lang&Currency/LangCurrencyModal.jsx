@@ -4,6 +4,7 @@ import { Button, Modal, Tabs, Tab, ListGroup } from "react-bootstrap";
 import { useAppContext } from "./AppContext";
 import "../styles/LangCurrencyModal.css";
 
+// Language/currency selector modal.
 const LangCurrencyModal = () => {
   const {
     currency,

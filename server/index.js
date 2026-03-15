@@ -1,6 +1,10 @@
+
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import connectDb from "./config/db.js";
 import { errorHandler, notFound } from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.js";
@@ -13,8 +17,19 @@ import transactionsRoutes from "./routes/transactions.js";
 import usersRoutes from "./routes/users.js";
 import walletsRoutes from "./routes/wallets.js";
 
-dotenv.config();
+// Load env from the repo root so server/ can be started from anywhere.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const envPath = path.resolve(__dirname, "..", ".env");
+if (!fs.existsSync(envPath)) {
+  console.warn(`Env file not found at ${envPath}`);
+}
+dotenv.config({ path: envPath, override: true });
+console.log(
+  `SMTP configured: ${process.env.SMTP_HOST ? "yes" : "no"}; host=${process.env.SMTP_HOST || "unset"}`,
+);
 
+// Express app + shared middleware.
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -27,6 +42,7 @@ app.use(
 );
 app.use(express.json({ limit: "8mb" }));
 
+// Simple health check endpoint.
 app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });

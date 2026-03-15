@@ -1,5 +1,6 @@
- import KycProfile from "../models/KycProfile.js";
+import KycProfile from "../models/KycProfile.js";
 
+// Get the logged-in user's KYC profile.
 export const getMyKyc = async (req, res) => {
   const profile = await KycProfile.findOne({ user: req.user.id });
   if (!profile) {
@@ -8,11 +9,13 @@ export const getMyKyc = async (req, res) => {
   return res.json({ profile });
 };
 
+// Admin view: list all KYC profiles.
 export const listKyc = async (_req, res) => {
   const profiles = await KycProfile.find().sort({ createdAt: -1 });
   res.json({ profiles });
 };
 
+// Create or update the user's KYC submission.
 export const submitKyc = async (req, res) => {
   const payload = {
     user: req.user.id,
@@ -28,6 +31,7 @@ export const submitKyc = async (req, res) => {
   return res.status(201).json({ profile });
 };
 
+// Admin review of a KYC profile.
 export const reviewKyc = async (req, res) => {
   const profile = await KycProfile.findByIdAndUpdate(
     req.params.id,

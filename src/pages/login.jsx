@@ -14,7 +14,7 @@ import "../styles/login.css";
 import useLogin from "../hooksJavascript/useLogin";
 
 const Login = () => {
-  // All logic is now in the hooksjavascript
+  // All login logic lives in the hook (state + submit handler).
   const {
     email,
     setEmail,
@@ -26,10 +26,6 @@ const Login = () => {
     isLoading,
     handleLogin,
     togglePasswordVisibility,
-    needsVerification,
-    resendMessage,
-    isResending,
-    handleResendVerification,
   } = useLogin();
 
   return (
@@ -62,26 +58,9 @@ const Login = () => {
                     {error}
                   </Alert>
                 )}
-                {needsVerification && (
-                  <Alert variant="warning">
-                    Please verify your email before logging in.
-                    <div className="mt-3 d-grid gap-2">
-                      <Button
-                        variant="outline-light"
-                        size="sm"
-                        onClick={handleResendVerification}
-                        disabled={isResending}
-                      >
-                        {isResending ? "Sending..." : "Resend verification email"}
-                      </Button>
-                      {resendMessage ? (
-                        <div className="small text-dark">{resendMessage}</div>
-                      ) : null}
-                    </div>
-                  </Alert>
-                )}
                 {success && <Alert variant="success">{success}</Alert>}
 
+                {/* Submit calls handleLogin, which hits /api/auth/login */}
                 <Form onSubmit={handleLogin}>
                   <Form.Group className="mb-3">
                     <Form.Label className="fw-medium ">

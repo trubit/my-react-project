@@ -1,11 +1,13 @@
- import SupportTicket from "../models/SupportTicket.js";
+import SupportTicket from "../models/SupportTicket.js";
 
+// List tickets (admins see all, users see theirs).
 export const listTickets = async (req, res) => {
   const filter = req.user?.role === "admin" ? {} : { user: req.user.id };
   const tickets = await SupportTicket.find(filter).sort({ createdAt: -1 });
   res.json({ tickets });
 };
 
+// Create a support ticket for the logged-in user.
 export const createTicket = async (req, res) => {
   const payload = {
     user: req.user.id,
@@ -17,6 +19,7 @@ export const createTicket = async (req, res) => {
   res.status(201).json({ ticket });
 };
 
+// Update a ticket by ID (e.g., status changes).
 export const updateTicket = async (req, res) => {
   const ticket = await SupportTicket.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -28,6 +31,7 @@ export const updateTicket = async (req, res) => {
   return res.json({ ticket });
 };
 
+// Add a reply to a ticket thread.
 export const addReply = async (req, res) => {
   const ticket = await SupportTicket.findById(req.params.id);
   if (!ticket) {

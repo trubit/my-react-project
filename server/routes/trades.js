@@ -8,6 +8,7 @@ import {
 } from "../controllers/tradesController.js";
 import { requireAuth } from "../middleware/auth.js";
 
+// Trade routes (authenticated).
 const router = express.Router();
 
 router.get("/", requireAuth, listTrades);

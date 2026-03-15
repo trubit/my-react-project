@@ -7,6 +7,7 @@ import {
   updateBlog,
 } from "../controllers/blogsController.js";
 
+// Blog CRUD routes.
 const router = express.Router();
 
 router.get("/", listBlogs);

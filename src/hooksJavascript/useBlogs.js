@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+// Hook for auto-rotating blog carousel index.
 const DEFAULT_INTERVAL_MS = 6000;
 
 export const useBlogs = (posts, options = {}) => {

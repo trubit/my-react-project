@@ -1,5 +1,6 @@
- import Blog from "../models/Blog.js";
+import Blog from "../models/Blog.js";
 
+// Parse query limit with sane defaults.
 const parseLimit = (value) => {
   const parsed = Number.parseInt(value, 10);
   if (Number.isNaN(parsed) || parsed <= 0) {
@@ -8,6 +9,7 @@ const parseLimit = (value) => {
   return Math.min(parsed, 50);
 };
 
+// Allow limited sort fields to avoid abuse.
 const parseSort = (value) => {
   if (!value) {
     return { updatedAt: -1 };
@@ -24,6 +26,7 @@ const parseSort = (value) => {
   return { [field]: isDesc ? -1 : 1 };
 };
 
+// Normalize user input into a safe blog payload.
 const toPayload = (body) => ({
   title: body.title?.trim() ?? "",
   description: body.description?.trim() ?? "",
@@ -34,6 +37,7 @@ const toPayload = (body) => ({
   date: body.date?.trim() ?? "",
 });
 
+// GET /blogs: list recent blog posts.
 export const listBlogs = async (req, res) => {
   const limit = parseLimit(req.query.limit);
   const sort = parseSort(req.query.sort);
@@ -41,6 +45,7 @@ export const listBlogs = async (req, res) => {
   res.json({ posts });
 };
 
+// GET /blogs/:id: fetch a single post.
 export const getBlog = async (req, res) => {
   const post = await Blog.findById(req.params.id);
   if (!post) {
@@ -49,6 +54,7 @@ export const getBlog = async (req, res) => {
   return res.json({ post });
 };
 
+// POST /blogs: create a blog post.
 export const createBlog = async (req, res) => {
   const payload = toPayload(req.body);
   if (!payload.title || !payload.description || !payload.link) {
@@ -60,6 +66,7 @@ export const createBlog = async (req, res) => {
   return res.status(201).json({ post });
 };
 
+// PATCH /blogs/:id: update a blog post.
 export const updateBlog = async (req, res) => {
   const payload = toPayload(req.body);
   if (!payload.title || !payload.description || !payload.link) {
@@ -78,6 +85,7 @@ export const updateBlog = async (req, res) => {
   return res.json({ post });
 };
 
+// DELETE /blogs/:id: remove a blog post.
 export const deleteBlog = async (req, res) => {
   const post = await Blog.findByIdAndDelete(req.params.id);
   if (!post) {

@@ -1,6 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useBlogUpdateForm, MAX_IMAGE_SIZE_MB } from "../hooksJavascript/useBlogUpdate";
 
+// Form UI for creating/updating blog posts.
 const BlogUpdateForm = ({
   posts,
   setPosts,

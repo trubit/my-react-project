@@ -7,6 +7,7 @@ import AuthBranding from "../Components/authBranding";
 import ToggleTheme from "../Components/toggleTheme";
 
 const Signup = () => {
+  // All signup state + validation live in the hook.
   const {
     email,
     setEmail,
@@ -22,7 +23,7 @@ const Signup = () => {
     isSubmitting,
     handleSubmit,
     errors,
-    setErrors,
+
     referralId,
     setReferralId,
   } = useSignup();
@@ -59,6 +60,7 @@ const Signup = () => {
               </Alert>
             )}
 
+            {/* Submit calls handleSubmit, which posts to /api/auth/register */}
             <Form onSubmit={handleSubmit}>
               {/* Email */}
               <Form.Group className="mb-3">
