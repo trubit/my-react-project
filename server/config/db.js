@@ -1,4 +1,4 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
 // Connects to MongoDB using the provided URI.
 const connectDb = async (mongoUri) => {
@@ -10,5 +10,4 @@ const connectDb = async (mongoUri) => {
   await mongoose.connect(mongoUri);
 };
 
-export default connectDb; 
-
+export default connectDb;

@@ -1,12 +1,11 @@
+// API client for authentication-related endpoints.
 const API_BASE_URL =
-  import.meta.env.VITE_TRUSON_API_URL ||
-  import.meta.env.VITE_API_URL ||
-  "";
-
+  import.meta.env.VITE_TRUSON_API_URL || import.meta.env.VITE_API_URL || "";
+// Default headers for JSON requests.
 const defaultHeaders = {
   "Content-Type": "application/json",
 };
-
+// Helper to parse JSON responses, returning null on failure.
 const parseJson = async (response) => {
   try {
     return await response.json();
@@ -14,7 +13,7 @@ const parseJson = async (response) => {
     return null;
   }
 };
-
+// Core request function that adds default headers and error handling.
 const request = async (path, options = {}) => {
   const normalizedOptions = {
     ...options,
@@ -24,8 +23,9 @@ const request = async (path, options = {}) => {
   if (normalizedOptions.body == null) {
     delete normalizedOptions.headers["Content-Type"];
   }
-
+  // Perform the fetch and parse the response.
   const response = await fetch(`${API_BASE_URL}${path}`, normalizedOptions);
+  // Attempt to parse JSON, but don't fail if it's not valid JSON.
   const payload = await parseJson(response);
 
   if (!response.ok) {
@@ -73,4 +73,27 @@ export const resetPassword = (payload) =>
   request("/api/auth/reset-password", {
     method: "POST",
     body: JSON.stringify(payload),
+  });
+
+// Verify email using a 6-digit code (OTP).
+export const verifyEmail = (code) =>
+  request("/api/auth/verify-email", {
+    method: "POST",
+    body: JSON.stringify({ code }),
+  });
+
+// Resend verification code for local accounts.
+export const resendEmailVerification = (email) =>
+  request("/api/auth/verify-email/resend", {
+    method: "POST",
+    body: JSON.stringify({ email }),
+  });
+
+// Fetch current authenticated user.
+export const getMe = () =>
+  request("/api/auth/me", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+    },
   });

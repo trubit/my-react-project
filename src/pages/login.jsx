@@ -30,6 +30,7 @@ const Login = () => {
     error,
     setError,
     isLoading,
+    needsVerification,
     handleLogin,
     togglePasswordVisibility,
   } = useLogin();
@@ -71,7 +72,17 @@ const Login = () => {
 
                 {error && (
                   <Alert variant="danger" dismissible>
-                    {error}
+                    <div>{error}</div>
+                    {needsVerification && (
+                      <div className="mt-2">
+                        <Link
+                          to="/verify-email"
+                          className="text-success fw-medium text-decoration-none"
+                        >
+                          Resend verification code
+                        </Link>
+                      </div>
+                    )}
                   </Alert>
                 )}
                 {success && <Alert variant="success">{success}</Alert>}

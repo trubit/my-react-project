@@ -17,6 +17,8 @@ const TransactionSchema = new mongoose.Schema(
       enum: ["pending", "completed", "failed"],
       default: "pending",
     },
+    note: { type: String, default: "" },
+    reference: { type: String, default: "" },
     txHash: { type: String, default: "" },
     network: { type: String, default: "" },
     address: { type: String, default: "" },

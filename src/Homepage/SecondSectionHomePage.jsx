@@ -64,6 +64,8 @@ const SecondSectionHomePage = () => {
 
         <div className="updates-grid">
           {latestPosts.map((post, index) => {
+            const slugOrId = post?.slug || post?.id || post?._id;
+            const detailLink = slugOrId ? `/blogs/${slugOrId}` : post.link;
             const imageSource = post.image || TrusonXBot;
             const imageAlt =
               post.imageAlt || post.title || `Update ${index + 1}`;
@@ -71,7 +73,7 @@ const SecondSectionHomePage = () => {
             return (
               <Link
                 key={post.id}
-                to={post.link}
+                to={detailLink || "/blogs"}
                 className="updates-card"
                 style={{ "--card-image": `url(${imageSource})` }}
               >

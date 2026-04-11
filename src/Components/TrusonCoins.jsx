@@ -1,50 +1,68 @@
 // src/components/TrusonCoins.jsx
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { fetchCoins } from "../api/coins";
 
-// Demo row that simulates a live coin ticker.
+// Live row for TrusonCoin (from backend catalog).
 const TrusonCoins = () => {
-  const [price, setPrice] = useState(4.2774); // start price like Tron
-  const [change24h, setChange24h] = useState(5.0); // start 24h change
-  const [volume, setVolume] = useState(1082094543); // start volume
+  const [coin, setCoin] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Price changes every 4–8 seconds (random interval for realism)
-      const randomDelay = Math.floor(Math.random() * 4000) + 4000; // 4–8 seconds
+    let isMounted = true;
+    fetchCoins()
+      .then((data) => {
+        if (!isMounted) return;
+        const found = data?.coins?.find((c) => c.symbol === "TRUSON");
+        setCoin(found || null);
+      })
+      .catch((err) => {
+        if (!isMounted) return;
+        setError(err.message || "Unable to load TrusonCoin.");
+      });
 
-      // Small realistic price movement (±0.3% to ±1.5%)
-      const changePercent = (Math.random() * 3 - 1.5) / 100;
-      const newPrice = Math.max(0.01, price * (1 + changePercent)); // don't go negative
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-      // 24h change updates smoothly
-      const newChange = change24h + changePercent * 100 * 0.9; // slight decay
+  const formatted = useMemo(() => {
+    if (!coin) return null;
+    const price = Number(coin.priceUsd || 0);
+    const change24h = Number(coin.change24h || 0);
+    const volume24h = Number(coin.volume24h || 0);
+    return { price, change24h, volume24h, isPositive: change24h > 0 };
+  }, [coin]);
 
-      // Volume increases slowly
-      const volumeIncrease = Math.floor(Math.random() * 5000000) + 1000000;
-      const newVolume = volume + volumeIncrease;
+  if (error) {
+    return (
+      <tr>
+        <td colSpan={4} className="text-danger">
+          {error}
+        </td>
+      </tr>
+    );
+  }
 
-      setPrice(newPrice);
-      setChange24h(newChange);
-      setVolume(newVolume);
+  if (!formatted) {
+    return (
+      <tr>
+        <td>TRUSON</td>
+        <td>Loading...</td>
+        <td>--</td>
+        <td>--</td>
+      </tr>
+    );
+  }
 
-      // Clear and restart interval for variable timing
-      clearInterval(interval);
-      setTimeout(() => {}, randomDelay); // simulate variable speed
-    }, 24000); // average ~6 seconds
-
-    return () => clearInterval(interval);
-  }, [price, change24h, volume]);
-
-  const isPositive = change24h > 0;
   return (
     <tr>
       <td>TRUSON</td>
-      <td>${price.toFixed(4)}</td>
-      <td className={isPositive ? "text-success" : "text-danger"}>
-        {change24h > 0 ? "+" : ""}
-        {change24h.toFixed(2)}%
+      <td>${formatted.price.toFixed(4)}</td>
+      <td className={formatted.isPositive ? "text-success" : "text-danger"}>
+        {formatted.change24h > 0 ? "+" : ""}
+        {formatted.change24h.toFixed(2)}%
       </td>
-      <td>{volume.toLocaleString()}</td>
+      <td>{formatted.volume24h.toLocaleString()}</td>
     </tr>
   );
 };

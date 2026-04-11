@@ -16,7 +16,7 @@ const SubscriptionSchema = new mongoose.Schema(
     startDate: { type: Date, default: Date.now },
     endDate: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 SubscriptionSchema.set("toJSON", {
@@ -30,5 +30,4 @@ SubscriptionSchema.set("toJSON", {
 
 const Subscription = mongoose.model("Subscription", SubscriptionSchema);
 
-export default Subscription; 
-
+export default Subscription;

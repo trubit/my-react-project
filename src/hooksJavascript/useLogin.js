@@ -10,6 +10,7 @@ const useLogin = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [needsVerification, setNeedsVerification] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,6 +25,7 @@ const useLogin = () => {
 
     setError("");
     setSuccess("");
+    setNeedsVerification(false);
     setIsLoading(true);
 
     try {
@@ -35,7 +37,11 @@ const useLogin = () => {
       setSuccess("Login successful!");
       navigate("/Dashboard");
     } catch (err) {
-      setError(err.message || "Something went wrong. Try again.");
+      const message = err.message || "Something went wrong. Try again.";
+      setError(message);
+      if (message.toLowerCase().includes("email not verified")) {
+        setNeedsVerification(true);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -51,6 +57,7 @@ const useLogin = () => {
     error,
     setError,
     isLoading,
+    needsVerification,
     handleLogin,
     togglePasswordVisibility,
   };

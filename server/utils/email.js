@@ -1,51 +1,126 @@
 import nodemailer from "nodemailer";
 
-// Pull SMTP config at send time so env vars are already loaded.
+// Defaults used when env vars are missing.
+const DEFAULT_FROM_NAME = "TrusonXchanger";
+const DEFAULT_FROM_EMAIL = "no-reply@trusonxchanger.com";
+
+// Read SMTP config from environment with Brevo defaults.
 const getSmtpConfig = () => ({
-  host: process.env.SMTP_HOST,
+  host: process.env.SMTP_HOST || "smtp-relay.brevo.com",
   port: Number(process.env.SMTP_PORT || 587),
-  secure: process.env.SMTP_SECURE === "true",
+  secure: process.env.SMTP_SECURE === "true" ? true : false,
   user: process.env.SMTP_USER,
   pass: process.env.SMTP_PASS,
-  from:
-    process.env.SMTP_FROM ||
-    "TrusonXchanger <no-reply@trusonxchanger.com>",
+  fromName: process.env.SMTP_FROM_NAME || DEFAULT_FROM_NAME,
+  fromEmail: process.env.SMTP_FROM_EMAIL || DEFAULT_FROM_EMAIL,
+  fromRaw: process.env.SMTP_FROM,
+  replyTo: process.env.SMTP_REPLY_TO || "",
 });
 
-// Build a transporter only if SMTP is configured.
-const buildTransporter = () => {
-  const { host, port, secure, user, pass } = getSmtpConfig();
-  if (!host) {
-    return null;
+// Prefer a fully-formed From header if provided.
+const buildFromHeader = ({ fromName, fromEmail, fromRaw }) => {
+  if (fromRaw) {
+    return fromRaw;
   }
+  return `${fromName} <${fromEmail}>`;
+};
 
+// Only enable SMTP when both credentials exist.
+const isConfigured = ({ user, pass }) => Boolean(user && pass);
+
+// Create a Brevo SMTP transporter (STARTTLS on port 587).
+const createTransporter = ({ host, port, secure, user, pass }) => {
   return nodemailer.createTransport({
     host,
     port,
     secure,
-    auth: user
-      ? {
-          user,
-          pass,
-        }
-      : undefined,
+    auth: {
+      user,
+      pass,
+    },
   });
 };
 
-export const sendEmail = async ({ to, subject, text, html }) => {
-  // Uses SMTP settings to send mail; skips if not configured.
-  const { from } = getSmtpConfig();
-  const transporter = buildTransporter();
+// Build a single transporter instance (reused for all sends).
+const transporterConfig = getSmtpConfig();
+const transporter = isConfigured(transporterConfig)
+  ? createTransporter(transporterConfig)
+  : null;
+
+// Verify connection on startup for fast feedback.
+const verifyTransporter = async () => {
   if (!transporter) {
-    console.log("SMTP not configured. Email skipped:", { to, subject });
+    console.warn(
+      "SMTP not configured. Skipping email transport verification.",
+    );
     return;
   }
 
-  await transporter.sendMail({
-    from,
-    to,
-    subject,
-    text,
-    html,
-  });
+  try {
+    await transporter.verify();
+    console.log(
+      "SMTP connection ready. Emails will be sent through Brevo SMTP.",
+    );
+  } catch (error) {
+    console.error(
+      "SMTP verification failed. Check your Brevo SMTP credentials:",
+      error?.message || error,
+    );
+  }
+};
+
+void verifyTransporter();
+
+// Basic HTML-to-text fallback without extra dependencies.
+const htmlToText = (html = "") => {
+  return html
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<p\s*\/?>/gi, "\n")
+    .replace(/<\/p>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+};
+
+// Support both object-based and positional arguments.
+const normalizeSendArgs = (to, subject, html, text) => {
+  if (typeof to === "object" && to !== null) {
+    return to;
+  }
+  return { to, subject, html, text };
+};
+
+// Main email sender used across controllers.
+export const sendEmail = async (to, subject, html, text) => {
+  const args = normalizeSendArgs(to, subject, html, text);
+  const { to: recipient, subject: mailSubject, html: htmlBody } = args;
+  const smtpConfig = getSmtpConfig();
+  const from = buildFromHeader(smtpConfig);
+  const replyTo = smtpConfig.replyTo || undefined;
+  const resolvedText =
+    args.text || (htmlBody ? htmlToText(htmlBody) : undefined);
+
+  if (!transporter) {
+    console.warn("SMTP not configured. Email skipped:", {
+      to: recipient,
+      subject: mailSubject,
+    });
+    return;
+  }
+
+  try {
+    await transporter.sendMail({
+      from,
+      to: recipient,
+      subject: mailSubject,
+      text: resolvedText,
+      html: htmlBody,
+      replyTo,
+    });
+  } catch (error) {
+    console.error("Email send failed:", error?.message || error);
+    throw error;
+  }
 };

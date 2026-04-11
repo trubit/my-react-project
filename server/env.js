@@ -10,7 +10,7 @@ const envCandidates = [
   path.resolve(__dirname, ".env"),
   path.resolve(__dirname, "..", ".env"),
 ];
-
+// Load env files in order, without overriding existing variables.
 envCandidates.forEach((candidate) => {
   if (fs.existsSync(candidate)) {
     dotenv.config({ path: candidate, override: false });

@@ -1,6 +1,6 @@
 import rateLimit from "express-rate-limit";
 
-// Rate limiting + lightweight anomaly tracking for auth endpoints.
+// NOTE: Rate limiting + lightweight anomaly tracking for auth endpoints.
 const WINDOW_MS = 10 * 60 * 1000;
 const THRESHOLD = 4;
 const anomalyTracker = new Map();
@@ -10,6 +10,7 @@ const normalizeEmail = (value) =>
 const trackerKey = (req) =>
   `${req.ip}:${normalizeEmail(req.body?.email ?? req.query?.email)}`;
 
+// NOTE: Drop very old entries so the tracker doesn't grow forever.
 const cleanupOldEntries = (now) => {
   for (const [key, entry] of anomalyTracker.entries()) {
     if (now - entry.firstSeen > WINDOW_MS * 3) {
@@ -18,6 +19,7 @@ const cleanupOldEntries = (now) => {
   }
 };
 
+// NOTE: Record suspicious auth activity and log when it crosses a threshold.
 export const logAuthAnomaly = (req, reason) => {
   const key = trackerKey(req);
   const now = Date.now();
@@ -47,10 +49,12 @@ export const logAuthAnomaly = (req, reason) => {
   }
 };
 
+// NOTE: Clear the anomaly tracker once a user succeeds.
 export const clearAuthAnomaly = (req) => {
   anomalyTracker.delete(trackerKey(req));
 };
 
+// NOTE: Helper to build a rate limiter with standard headers.
 const createLimiter = (options) =>
   rateLimit({
     windowMs: options.windowMs,
@@ -60,28 +64,37 @@ const createLimiter = (options) =>
     legacyHeaders: false,
   });
 
+// NOTE: Limit login attempts per window to reduce brute-force attacks.
 export const loginLimiter = createLimiter({
   windowMs: 60 * 1000,
   max: 5,
   message: "Too many login attempts; try again shortly.",
 });
 
+// NOTE: Limit signup attempts per window to reduce spam accounts.
 export const registerLimiter = createLimiter({
   windowMs: 5 * 60 * 1000,
   max: 3,
   message: "Too many signup attempts; please wait and try again.",
 });
 
-// Limit how often reset links can be requested.
+// NOTE: Limit how often reset links can be requested.
 export const forgotPasswordLimiter = createLimiter({
   windowMs: 10 * 60 * 1000,
   max: 4,
   message: "Too many password reset requests; wait a bit and try again.",
 });
 
-// Limit how often reset tokens can be tried.
+// NOTE: Limit how often reset tokens can be tried.
 export const resetPasswordLimiter = createLimiter({
   windowMs: 10 * 60 * 1000,
   max: 6,
   message: "Too many password reset attempts; wait before retrying.",
+});
+
+// NOTE: Limit how often verification emails can be resent.
+export const resendVerificationLimiter = createLimiter({
+  windowMs: 10 * 60 * 1000,
+  max: 4,
+  message: "Too many verification requests; wait a bit and try again.",
 });

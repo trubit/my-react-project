@@ -4,8 +4,9 @@ import mongoose from "mongoose";
 const BlogSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
+    slug: { type: String, unique: true, lowercase: true, trim: true },
     description: { type: String, required: true, trim: true },
-    link: { type: String, required: true, trim: true },
+    link: { type: String, default: "", trim: true },
     image: { type: String, default: "" },
     imageAlt: { type: String, default: "" },
     tag: { type: String, default: "" },

@@ -12,32 +12,52 @@ export const BlogCarousel = ({ posts, activeIndex, onSelectIndex }) => {
         className="blogs-track"
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}
       >
-        {posts.map((post) => (
-          <div className="blogs-slide" key={post.id}>
-            <NavLink
-              to={post.link}
-              className="blogs-card-link"
-              aria-label={`Open ${post.title}`}
-            >
-              <article
-                className="blogs-card blogs-card--media"
-                style={{
-                  "--media-image": post.image
-                    ? `url(${post.image})`
-                    : "linear-gradient(135deg, #1b1f27, #101318)",
-                }}
-              />
-            </NavLink>
-
-            <NavLink to={post.link} className="blogs-card-link">
-              <article className="blogs-card blogs-card--content">
-                <h3 className="blogs-title">{post.title}</h3>
-                <p className="blogs-description">{post.description}</p>
-                {post.date ? <p className="blogs-date">{post.date}</p> : null}
-              </article>
-            </NavLink>
-          </div>
-        ))}
+        {posts.map((post) => {
+          const slugOrId = post?.slug || post?.id || post?._id;
+          const detailLink = slugOrId ? `/blogs/${slugOrId}` : post.link;
+          const readableSlug =
+            post?.slug ||
+            post?.title
+              ?.toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/(^-|-$)+/g, "");
+          const readableLink = readableSlug ? `/blogs/${readableSlug}` : "";
+          return (
+            <div className="blogs-slide" key={post.id}>
+              <NavLink
+                to={detailLink || "/blogs"}
+                className="blogs-feature-link"
+                aria-label={`Open ${post.title}`}
+              >
+                <article className="blogs-feature-card" style={{ cursor: "pointer" }}>
+                  <div
+                    className="blogs-feature-media"
+                    style={{
+                      "--media-image": post.image
+                        ? `url(${post.image})`
+                        : "linear-gradient(135deg, #1b1f27, #101318)",
+                    }}
+                  />
+                  <div className="blogs-feature-body">
+                    {post.tag ? (
+                      <span className="blogs-feature-tag">{post.tag}</span>
+                    ) : null}
+                    <h3 className="blogs-feature-title">{post.title}</h3>
+                    <p className="blogs-feature-description">
+                      {post.description}
+                    </p>
+                    {post.date ? (
+                      <p className="blogs-feature-date">{post.date}</p>
+                    ) : null}
+                    {readableLink ? (
+                      <p className="blogs-feature-link">{readableLink}</p>
+                    ) : null}
+                  </div>
+                </article>
+              </NavLink>
+            </div>
+          );
+        })}
       </div>
 
       <div className="blogs-dots">
@@ -62,14 +82,24 @@ export const BlogGrid = ({ posts }) => {
 
   return (
     <div className="blogs-grid">
-      {posts.map((post) => (
+      {posts.map((post) => {
+        const slugOrId = post?.slug || post?.id || post?._id;
+        const detailLink = slugOrId ? `/blogs/${slugOrId}` : post.link;
+        const readableSlug =
+          post?.slug ||
+          post?.title
+            ?.toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)+/g, "");
+        const readableLink = readableSlug ? `/blogs/${readableSlug}` : "";
+        return (
         <NavLink
-          to={post.link}
+          to={detailLink || "/blogs"}
           className="blogs-grid-link"
           aria-label={`Open ${post.title}`}
           key={post.id}
         >
-          <article className="blogs-grid-card">
+          <article className="blogs-grid-card" style={{ cursor: "pointer" }}>
             <div
               className="blogs-grid-media"
               style={{
@@ -86,10 +116,14 @@ export const BlogGrid = ({ posts }) => {
               <h3 className="blogs-grid-title">{post.title}</h3>
               <p className="blogs-grid-description">{post.description}</p>
               {post.date ? <p className="blogs-date">{post.date}</p> : null}
+              {readableLink ? (
+                <p className="blogs-grid-link-text">{readableLink}</p>
+              ) : null}
             </div>
           </article>
         </NavLink>
-      ))}
+        );
+      })}
     </div>
   );
 };

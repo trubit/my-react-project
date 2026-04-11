@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { createIdFromTitle, getVisiblePosts } from "./useBlogPosts";
+import { createBlog, deleteBlog, updateBlog } from "../api/blogs.jsx";
 
 const emptyForm = {
   title: "",
   description: "",
   date: "",
-  link: "",
   image: "",
   imageAlt: "",
   tag: "",
@@ -20,10 +19,14 @@ export const useBlogUpdateForm = ({
   visiblePosts,
   activePost,
   onActivatePost,
+  onSaveSuccess,
 }) => {
   const [editingId, setEditingId] = useState("new");
   const [formData, setFormData] = useState(emptyForm);
   const [uploadError, setUploadError] = useState("");
+  const [saveError, setSaveError] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (editingId === "new") {
@@ -49,6 +52,7 @@ export const useBlogUpdateForm = ({
     const value = event.target.value;
     setEditingId(value);
     setUploadError("");
+    setSaveError("");
 
     if (value === "new") {
       setFormData(emptyForm);
@@ -70,7 +74,6 @@ export const useBlogUpdateForm = ({
       title: selected.title ?? "",
       description: selected.description ?? "",
       date: selected.date ?? "",
-      link: selected.link ?? "",
       image: selected.image ?? "",
       imageAlt: selected.imageAlt ?? "",
       tag: selected.tag ?? "",
@@ -117,58 +120,73 @@ export const useBlogUpdateForm = ({
     setFormData((prev) => ({ ...prev, image: "" }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setSaveError("");
 
     const payload = {
       title: formData.title.trim(),
       description: formData.description.trim(),
       date: formData.date.trim(),
-      link: formData.link.trim(),
       image: formData.image.trim(),
       imageAlt: formData.imageAlt.trim(),
       tag: formData.tag.trim(),
     };
 
-    if (!payload.title || !payload.description || !payload.link) {
+    if (!payload.title || !payload.description) {
+      setSaveError("Title and description are required.");
       return;
     }
 
-    const timestamp = Date.now();
-    let nextPosts = posts;
-    let targetId = editingId;
+    setSaving(true);
+    try {
+      if (editingId === "new") {
+        const data = await createBlog(payload);
+        const newPost = data?.post;
+        if (newPost) {
+          setPosts((prev) => [newPost, ...prev]);
+          setEditingId("new");
+          setFormData(emptyForm);
+          onSaveSuccess?.();
+        }
+      } else {
+        const data = await updateBlog(editingId, payload);
+        const updated = data?.post;
+        if (updated) {
+          setPosts((prev) => prev.map((post) => (post.id === updated.id ? updated : post)));
+          onSaveSuccess?.();
+        }
+      }
+    } catch (err) {
+      setSaveError(err.message || "Unable to save blog post.");
+    } finally {
+      setSaving(false);
+    }
+  };
 
+  const handleDelete = async () => {
     if (editingId === "new") {
-      const newPost = {
-        id: createIdFromTitle(payload.title),
-        updatedAt: timestamp,
-        ...payload,
-      };
-      targetId = newPost.id;
-      nextPosts = [newPost, ...posts];
-      setEditingId("new");
-      setFormData(emptyForm);
-      setUploadError("");
-    } else {
-      nextPosts = posts.map((post) =>
-        post.id === editingId
-          ? {
-              ...post,
-              ...payload,
-              id: editingId,
-              updatedAt: timestamp,
-            }
-          : post
-      );
+      setSaveError("Select a post to delete.");
+      return;
     }
 
-    setPosts(nextPosts);
-    setUploadError("");
+    const confirmed = window.confirm("Delete this blog post? This cannot be undone.");
+    if (!confirmed) {
+      return;
+    }
 
-    const nextVisible = getVisiblePosts(nextPosts);
-    const nextIndex = nextVisible.findIndex((post) => post.id === targetId);
-    if (nextIndex >= 0) {
-      onActivatePost?.(nextIndex);
+    setDeleting(true);
+    setSaveError("");
+    try {
+      await deleteBlog(editingId);
+      setPosts((prev) => prev.filter((post) => post.id !== editingId));
+      setEditingId("new");
+      setFormData(emptyForm);
+      onSaveSuccess?.();
+    } catch (err) {
+      setSaveError(err.message || "Unable to delete blog post.");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -179,11 +197,11 @@ export const useBlogUpdateForm = ({
 
     setEditingId(activePost.id);
     setUploadError("");
+    setSaveError("");
     setFormData({
       title: activePost.title ?? "",
       description: activePost.description ?? "",
       date: activePost.date ?? "",
-      link: activePost.link ?? "",
       image: activePost.image ?? "",
       imageAlt: activePost.imageAlt ?? "",
       tag: activePost.tag ?? "",
@@ -194,12 +212,16 @@ export const useBlogUpdateForm = ({
     editingId,
     formData,
     uploadError,
+    saveError,
+    saving,
+    deleting,
     imageUrlValue,
     handleSelectChange,
     handleFieldChange,
     handleImageUpload,
     handleRemoveImage,
     handleSubmit,
+    handleDelete,
     useLatestPost,
   };
 };

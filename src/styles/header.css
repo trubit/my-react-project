@@ -1,35 +1,67 @@
 .nav-header {
-  background-color: #0d1117;
-  border-bottom: 1px solid #21262d;
+  background: linear-gradient(90deg, #0f2027 0%, #2c5364 100%);
+  border-bottom: 2px solid #00ffd0;
+  box-shadow:
+    0 4px 24px 0 rgba(0, 255, 208, 0.08),
+    0 1.5px 0 0 #00ffd0;
 }
 
 .container-nav {
-  color: #00ff9d;
+  color: #00ffd0;
+  text-shadow: 0 2px 8px rgba(0, 255, 208, 0.18);
   text-decoration: none;
+  letter-spacing: 0.5px;
+  transition:
+    color 0.2s,
+    text-shadow 0.2s;
 }
 
 .container-nav:hover,
 .container-nav:focus-visible {
-  color: #2fe6a4;
+  color: #fff;
+  text-shadow: 0 4px 16px rgba(0, 255, 208, 0.28);
 }
 
 .button-nav {
-  background-color: #00c853;
-  border-color: #00c853;
+  background: linear-gradient(90deg, #00ffd0 0%, #007cf0 100%);
+  border: none;
+  color: #0f2027;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 255, 208, 0.12);
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.button-nav:hover {
+  background: linear-gradient(90deg, #007cf0 0%, #00ffd0 100%);
+  color: #fff;
 }
 
 .nav-header .navbar-nav .nav-link {
-  color: rgba(241, 245, 249, 0.82);
-  transition: color 0.2s ease;
+  color: #e0f7fa;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  transition:
+    color 0.2s,
+    text-shadow 0.2s;
 }
 
 .nav-header .navbar-nav .nav-link:hover,
 .nav-header .navbar-nav .nav-link:focus-visible {
-  color: #22c55e;
+  color: #00ffd0;
+  text-shadow: 0 2px 8px rgba(0, 255, 208, 0.18);
 }
 
 .nav-header .navbar-brand {
-  letter-spacing: -0.3px;
+  letter-spacing: 0.5px;
+  color: #00ffd0 !important;
+  text-shadow: 0 2px 8px rgba(0, 255, 208, 0.18);
+}
+
+.nav-logo {
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
 .nav-header .navbar-toggler {
@@ -70,6 +102,10 @@
 
   .nav-header .container-nav {
     font-size: 1.35rem;
+  }
+
+  .nav-logo {
+    height: 28px;
   }
 }
 /*.truson-navbar-logo {

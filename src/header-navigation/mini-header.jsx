@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import LangCurrencyModal from "../Lang&Currency/LangCurrencyModal";
-
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/mini-header.css";
 

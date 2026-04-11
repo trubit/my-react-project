@@ -26,6 +26,13 @@ const UserSchema = new mongoose.Schema(
     avatarUrl: { type: String, default: "" },
     resetPasswordTokenHash: { type: String, default: "", select: false },
     resetPasswordExpires: { type: Date },
+    // Email verification state for local signups.
+    emailVerified: { type: Boolean, default: undefined },
+    emailVerifyTokenHash: { type: String, default: "", select: false },
+    emailVerifyExpires: { type: Date },
+    // Email verification code (OTP) for local signups.
+    emailVerifyCodeHash: { type: String, default: "", select: false },
+    emailVerifyCodeExpires: { type: Date },
     // Authorization role for access control.
     role: { type: String, enum: ["user", "admin"], default: "user" },
     // Contact phone (optional).

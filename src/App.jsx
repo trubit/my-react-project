@@ -19,10 +19,7 @@ import Dashborad from "./pages/Dashboard";
 
 import Blogs from "./Blogs-page/blogs";
 import BlogUpdate from "./Components/BlogUpdate";
-import FinCen from "./Blogs-page/Fincen";
-import FreePackage from "./Blogs-page/FreePackage";
-import GoldenBuySell from "./Blogs-page/GoldenBuySell";
-import Xgolden from "./Blogs-page/X-golden";
+import BlogDetail from "./Blogs-page/blog-detail";
 
 import Spot from "./Crypto-Trade/Spot";
 import Futures from "./Crypto-Trade/Futures";
@@ -35,7 +32,7 @@ import "./App.css";
 const App = () => {
   const location = useLocation();
 
-  const hideHeader = [
+  const hideHeaderRoutes = [
     "/login",
     "/signup",
     "/forgot-password",
@@ -45,16 +42,16 @@ const App = () => {
     "/trade",
     "/Blogs",
     "/BlogUpdate",
-    "/FreePackage",
-    "/FinCen",
-    "/GoldenBuySell",
-    "/Xgolden",
     "/Spot",
     "/Futures",
     "/Support",
 
     //add any other auth pages here
-  ].includes(location.pathname);
+  ];
+
+  const hideHeader =
+    hideHeaderRoutes.includes(location.pathname) ||
+    location.pathname.startsWith("/blogs/");
 
   return (
     <>
@@ -73,10 +70,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/Blogs" element={<Blogs />} />
         <Route path="/BlogUpdate" element={<BlogUpdate />} />
-        <Route path="/FinCen" element={<FinCen />} />
-        <Route path="/FreePackage" element={<FreePackage />} />
-        <Route path="/GoldenBuySell" element={<GoldenBuySell />} />
-        <Route path="/Xgolden" element={<Xgolden />} />
+        <Route path="/blogs/:id" element={<BlogDetail />} />
         <Route path="/Spot" element={<Spot />} />
         <Route path="/Futures" element={<Futures />} />
         <Route path="/Support" element={<Support />} />

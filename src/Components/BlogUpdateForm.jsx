@@ -13,12 +13,16 @@ const BlogUpdateForm = ({
     editingId,
     formData,
     uploadError,
+    saveError,
+    saving,
+    deleting,
     imageUrlValue,
     handleSelectChange,
     handleFieldChange,
     handleImageUpload,
     handleRemoveImage,
     handleSubmit,
+    handleDelete,
     useLatestPost,
   } = useBlogUpdateForm({
     posts,
@@ -77,17 +81,6 @@ const BlogUpdateForm = ({
         </label>
 
         <label className="blogs-field">
-          Link
-          <input
-            name="link"
-            value={formData.link}
-            onChange={handleFieldChange}
-            placeholder="/MyNewBlog"
-            required
-          />
-        </label>
-
-        <label className="blogs-field">
           Date (optional)
           <input
             name="date"
@@ -139,10 +132,13 @@ const BlogUpdateForm = ({
               </Button>
             </div>
           ) : null}
-          {uploadError ? (
-            <div className="blogs-image-error">{uploadError}</div>
-          ) : null}
-        </label>
+        {uploadError ? (
+          <div className="blogs-image-error">{uploadError}</div>
+        ) : null}
+        {saveError ? (
+          <div className="blogs-image-error">{saveError}</div>
+        ) : null}
+      </label>
 
         <label className="blogs-field blogs-field-full">
           Image alt text (optional)
@@ -155,8 +151,8 @@ const BlogUpdateForm = ({
         </label>
 
         <div className="blogs-form-actions">
-          <Button type="submit" variant="success">
-            {editingId === "new" ? "Add post" : "Update post"}
+          <Button type="submit" variant="success" disabled={saving}>
+            {saving ? "Saving..." : editingId === "new" ? "Add post" : "Update post"}
           </Button>
           {activePost ? (
             <Button
@@ -165,6 +161,16 @@ const BlogUpdateForm = ({
               onClick={useLatestPost}
             >
               Use latest post
+            </Button>
+          ) : null}
+          {editingId !== "new" ? (
+            <Button
+              type="button"
+              variant="outline-danger"
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? "Deleting..." : "Delete post"}
             </Button>
           ) : null}
         </div>

@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+ï»¿import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { OAuth2Client } from "google-auth-library";
 import User from "../models/User.js";
@@ -13,6 +13,8 @@ const PASSWORD_POLICY =
 const HASH_ROUNDS = 12;
 // Reset links expire after 1 hour for safety.
 const RESET_TOKEN_TTL_MS = 1000 * 60 * 60;
+// Email verification codes expire after 10 minutes.
+const EMAIL_VERIFY_CODE_TTL_MS = 1000 * 60 * 10;
 // Frontend base URL used in reset-password links.
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 // Google OAuth client ID (must match the one used on the frontend).
@@ -39,13 +41,20 @@ const normalizeText = (value) => value?.trim() ?? "";
 // Build reset link for the frontend reset-password page.
 const buildResetUrl = (token) =>
   `${FRONTEND_URL}/reset-password?token=${encodeURIComponent(token)}`;
-
 // Create a reset token and store only its hash in the database.
 const createResetToken = () => {
   const token = crypto.randomBytes(32).toString("hex");
   const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
   const expires = new Date(Date.now() + RESET_TOKEN_TTL_MS);
   return { token, tokenHash, expires };
+};
+
+// Create a 6-digit email verification code and store only its hash.
+const createEmailVerifyCode = () => {
+  const code = crypto.randomInt(100000, 1000000).toString();
+  const codeHash = crypto.createHash("sha256").update(code).digest("hex");
+  const expires = new Date(Date.now() + EMAIL_VERIFY_CODE_TTL_MS);
+  return { code, codeHash, expires };
 };
 
 // Send a reset link email (HTML + plain text).
@@ -70,6 +79,31 @@ const sendPasswordResetEmail = async (user, token) => {
     </p>
     <p style="word-break:break-all;"><a href="${resetUrl}">${resetUrl}</a></p>
     <p>If you did not request this, you can ignore this message.</p>
+  `;
+
+  await sendEmail({ to: user.email, subject, text, html });
+};
+
+// Send a verification code email (HTML + plain text).
+const sendEmailVerificationEmail = async (user, code) => {
+  const subject = "Your TrusonXchanger verification code";
+  const text = [
+    "Welcome to TrusonXchanger!",
+    "",
+    "Use this verification code to confirm your email address:",
+    code,
+    "",
+    "This code expires in 10 minutes.",
+    "If you did not create this account, you can ignore this message.",
+  ].join("\n");
+  const html = `
+    <p>Welcome to TrusonXchanger!</p>
+    <p>Use this verification code to confirm your email address:</p>
+    <p style="font-size:24px;font-weight:700;letter-spacing:3px;margin:16px 0;">
+      ${code}
+    </p>
+    <p>This code expires in <strong>10 minutes</strong>.</p>
+    <p>If you did not create this account, you can ignore this message.</p>
   `;
 
   await sendEmail({ to: user.email, subject, text, html });
@@ -106,6 +140,9 @@ export const register = async (req, res) => {
   // Hash the password before storing it.
   const passwordHash = await bcrypt.hash(password, HASH_ROUNDS);
 
+  // Create a verification code for local signups.
+  const { code, codeHash, expires } = createEmailVerifyCode();
+
   // Create a new user.
   const user = await User.create({
     name: cleanedName,
@@ -113,12 +150,76 @@ export const register = async (req, res) => {
     passwordHash,
     referralId: cleanedReferral,
     authProvider: "local",
+    emailVerified: false,
+    emailVerifyCodeHash: codeHash,
+    emailVerifyCodeExpires: expires,
   });
+
+  try {
+    await sendEmailVerificationEmail(user, code);
+  } catch (error) {
+    console.error("Email verification send failed:", error?.message || error);
+  }
 
   // Return a safe version of the user (no password).
   return res.status(201).json({
     user: toSafeUser(user),
-    message: "Registration successful.",
+    message: "Registration successful. Please check your email for a code.",
+  });
+};
+
+// Resend verification email for local accounts.
+export const resendEmailVerification = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  const normalizedEmail = normalizeEmail(email);
+  const user = await User.findOne({ email: normalizedEmail }).select(
+    "+emailVerifyCodeHash",
+  );
+
+  // Always respond the same to avoid leaking account state.
+  if (!user) {
+    logAuthAnomaly(req, "verify-user-not-found");
+    return res.json({
+      message:
+        "If that email matches an account, a verification code has been sent.",
+    });
+  }
+
+  if (user.authProvider === "google") {
+    logAuthAnomaly(req, "verify-google-user");
+    return res.json({
+      message:
+        "If that email matches an account, a verification code has been sent.",
+    });
+  }
+
+  // Only resend for accounts explicitly marked unverified.
+  if (user.emailVerified !== false) {
+    return res.json({
+      message:
+        "If that email matches an account, a verification code has been sent.",
+    });
+  }
+
+  const { code, codeHash, expires } = createEmailVerifyCode();
+  user.emailVerifyCodeHash = codeHash;
+  user.emailVerifyCodeExpires = expires;
+  await user.save();
+
+  try {
+    await sendEmailVerificationEmail(user, code);
+    clearAuthAnomaly(req);
+  } catch (error) {
+    console.error("Email verification resend failed:", error?.message || error);
+  }
+
+  return res.json({
+      message:
+        "If that email matches an account, a verification code has been sent.",
   });
 };
 
@@ -142,6 +243,14 @@ export const login = async (req, res) => {
   if (!user) {
     logAuthAnomaly(req, "user-not-found");
     return res.status(401).json({ message: "Invalid credentials." });
+  }
+
+  // Block local sign-in until the email is verified.
+  if (user.authProvider !== "google" && user.emailVerified === false) {
+    logAuthAnomaly(req, "email-unverified");
+    return res.status(403).json({
+      message: "Email not verified. Please check your inbox.",
+    });
   }
 
   // Google-only accounts have no password hash.
@@ -278,6 +387,7 @@ const upsertGoogleUser = async (payload, referralId, req) => {
       googleId,
       avatarUrl: payload?.picture || "",
       referralId: cleanedReferral,
+      emailVerified: true,
     });
     return user;
   }
@@ -310,6 +420,13 @@ const upsertGoogleUser = async (payload, referralId, req) => {
     user.avatarUrl = payload.picture;
   }
 
+  // Mark email as verified when Google confirms it.
+  if (user.emailVerified === false) {
+    user.emailVerified = true;
+    user.emailVerifyTokenHash = "";
+    user.emailVerifyExpires = null;
+  }
+
   // Save updates to the user.
   await user.save();
   return user;
@@ -329,7 +446,7 @@ export const requestPasswordReset = async (req, res) => {
 
   // Normalize email and look up user.
   const normalizedEmail = normalizeEmail(email);
-  // We respond the same either way so we don’t leak whether the email exists.
+  // We respond the same either way so we donâ€™t leak whether the email exists.
   const user = await User.findOne({
     email: normalizedEmail,
     status: "active",
@@ -410,7 +527,7 @@ export const resetPassword = async (req, res) => {
       .json({ message: "Invalid or expired password reset token." });
   }
 
-  // Update password and clear reset fields so the token can’t be reused.
+  // Update password and clear reset fields so the token canâ€™t be reused.
   user.passwordHash = await bcrypt.hash(password, HASH_ROUNDS);
   user.resetPasswordTokenHash = "";
   user.resetPasswordExpires = null;
@@ -420,3 +537,35 @@ export const resetPassword = async (req, res) => {
   clearAuthAnomaly(req);
   return res.json({ message: "Password reset successfully." });
 };
+
+// Verify email using a token sent to the user.
+export const verifyEmail = async (req, res) => {
+  const code = req.body?.code || req.query.code || req.body?.token || req.query.token;
+  if (!code) {
+    return res.status(400).json({ message: "Verification code is required." });
+  }
+
+  const codeHash = crypto.createHash("sha256").update(code).digest("hex");
+  const user = await User.findOne({
+    emailVerifyCodeHash: codeHash,
+    emailVerifyCodeExpires: { $gt: new Date() },
+  }).select("+emailVerifyCodeHash");
+
+  if (!user) {
+    logAuthAnomaly(req, "verify-token-invalid");
+    return res
+      .status(400)
+      .json({ message: "Invalid or expired verification code." });
+  }
+
+  user.emailVerified = true;
+  user.emailVerifyTokenHash = "";
+  user.emailVerifyExpires = null;
+  user.emailVerifyCodeHash = "";
+  user.emailVerifyCodeExpires = null;
+  await user.save();
+
+  clearAuthAnomaly(req);
+  return res.json({ message: "Email verified successfully." });
+};
+

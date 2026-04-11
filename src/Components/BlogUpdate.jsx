@@ -9,7 +9,8 @@ import "../styles/blogs.css";
 
 // Admin blog update page (form + preview).
 const BlogUpdatePage = () => {
-  const { posts, setPosts, visiblePosts } = useBlogPosts();
+  const { posts, setPosts, visiblePosts, loading, error, refresh } =
+    useBlogPosts();
   const activePost = visiblePosts[0] ?? null;
 
   return (
@@ -28,11 +29,14 @@ const BlogUpdatePage = () => {
                 View Blog Cards
               </Button>
             </div>
+            {loading && <div className="blogs-admin-note">Loading posts...</div>}
+            {error && <div className="blogs-admin-note">{error}</div>}
             <BlogUpdateForm
               posts={posts}
               setPosts={setPosts}
               visiblePosts={visiblePosts}
               activePost={activePost}
+              onSaveSuccess={refresh}
             />
             <div className="blogs-update-preview">
               <h2 className="blogs-form-title">Preview</h2>
