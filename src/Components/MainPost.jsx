@@ -15,15 +15,16 @@ const formatDate = (value) => {
 
 const MainPost = ({ post, isFading }) => {
   if (!post) return null;
-  const displayDate =
-    post.date || formatDate(post.updatedAt || post.createdAt);
+  const displayDate = post.date || formatDate(post.updatedAt || post.createdAt);
 
   return (
     <article className={`main-post post-fade ${isFading ? "fade-out" : ""}`}>
       <header className="post-header">
         <h1 className="post-title">{post.title}</h1>
         <div className="post-meta">
-          {displayDate ? <span className="post-date">{displayDate}</span> : null}
+          {displayDate ? (
+            <span className="post-date">{displayDate}</span>
+          ) : null}
           {post.tag ? (
             <Badge bg="success" className="post-category">
               {post.tag}
@@ -34,13 +35,25 @@ const MainPost = ({ post, isFading }) => {
 
       {post.imageUrl || post.image ? (
         <div className="post-hero">
-          <img src={post.imageUrl || post.image} alt={post.imageAlt || post.title} />
+          <img
+            src={post.imageUrl || post.image}
+            alt={post.imageAlt || post.title}
+          />
         </div>
       ) : null}
 
       <div className="post-content">
         {hasHtml(post.description) ? (
-          <div dangerouslySetInnerHTML={{ __html: post.description }} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: post.description.replace(
+                /<(h[2-6])([^>]*)>(.*?)<\/\1>/gis,
+                (match, tag, attrs, content) => {
+                  return `<${tag}${attrs}>${content.toUpperCase()}</${tag}>`;
+                },
+              ),
+            }}
+          />
         ) : (
           (post.description || "")
             .split(/\n{2,}/g)

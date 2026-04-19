@@ -1,0 +1,99 @@
+.arbitrage-section-bg {
+  background: #f7fafd;
+}
+
+.arbitrage-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0e9d3e;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.arbitrage-title {
+  font-size: 3.3rem;
+  font-weight: 700;
+  color: #23272f;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.arbitrage-desc {
+  font-size: 1.13rem;
+  color: #a7aaad;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.arbitrage-feature-card {
+  border: none;
+  background: #fff !important;
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  min-height: 220px;
+  width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.arbitrage-feature-card:hover {
+  /*box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);*/
+}
+
+.arbitrage-feature-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.arbitrage-feature-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #060607;
+}
+
+.arbitrage-feature-desc {
+  font-size: 1rem;
+  color: #8b8f93;
+  font-weight: 500;
+}
+
+.arbitrage-illustration {
+  max-width: 550px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 1.2rem;
+}
+
+@media (max-width: 991px) {
+  .arbitrage-title {
+    font-size: 1.5rem;
+  }
+  .arbitrage-illustration {
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 767px) {
+  .arbitrage-section-bg {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  .arbitrage-content {
+    margin-bottom: 2rem;
+  }
+  .arbitrage-illustration {
+    margin-top: 2rem;
+    max-width: 220px;
+  }
+  .arbitrage-feature-card {
+    min-height: 180px;
+    padding: 1.1rem 0.8rem 0.8rem 0.8rem;
+    background: #fff !important;
+    max-width: 100%;
+  }
+}

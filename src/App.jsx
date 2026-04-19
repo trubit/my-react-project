@@ -26,6 +26,8 @@ import Futures from "./Crypto-Trade/Futures";
 
 import Support from "./Components/Support";
 
+import VerifyEmail from "./pages/verify-email";
+
 import "./App.css";
 
 // Main app router and top-level layout.
@@ -74,6 +76,7 @@ const App = () => {
         <Route path="/Spot" element={<Spot />} />
         <Route path="/Futures" element={<Futures />} />
         <Route path="/Support" element={<Support />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
       </Routes>
     </>
   );

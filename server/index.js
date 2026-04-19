@@ -5,6 +5,7 @@ import connectDb from "./config/db.js";
 import { errorHandler, notFound } from "./middleware/errorHandler.js";
 import authRoutes from "./routes/auth.js";
 import blogsRoutes from "./routes/blogs.js";
+import coinsRoutes from "./routes/coins.js";
 import kycRoutes from "./routes/kyc.js";
 import subscriptionsRoutes from "./routes/subscriptions.js";
 import supportRoutes from "./routes/support.js";
@@ -12,6 +13,7 @@ import tradesRoutes from "./routes/trades.js";
 import transactionsRoutes from "./routes/transactions.js";
 import usersRoutes from "./routes/users.js";
 import walletsRoutes from "./routes/wallets.js";
+import trusonCoinsRoutes from "./routes/trusonCoins.js";
 // Log critical configuration at startup for visibility.
 console.log(
   `SMTP configured: ${process.env.SMTP_HOST ? "yes" : "no"}; host=${process.env.SMTP_HOST || "unset"}`,
@@ -40,6 +42,7 @@ app.get("/health", (_req, res) => {
 });
 // API routes.
 app.use("/api/auth", authRoutes);
+app.use("/api/coins", coinsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/trades", tradesRoutes);
 app.use("/api/subscriptions", subscriptionsRoutes);
@@ -48,6 +51,7 @@ app.use("/api/wallets", walletsRoutes);
 app.use("/api/kyc", kycRoutes);
 app.use("/api/transactions", transactionsRoutes);
 app.use("/api/blogs", blogsRoutes);
+app.use("/api/trusonCoins", trusonCoinsRoutes);
 // Error handling middleware (should be last).
 app.use(notFound);
 app.use(errorHandler);

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 // Homepage hero + live crypto section.
 const FirstSectionHome = () => {
   return (
-    <Card className="home-page bg-dark text-white min-vh-100 d-flex flex-column">
+    <section className="home-page bg-dark text-white min-vh-100 d-flex flex-column">
       <section className="hero-section">
         <Container fluid="xxl" className="hero-grid">
           <div className="hero-copy">
@@ -55,7 +55,7 @@ const FirstSectionHome = () => {
       <div className="live-crypto-section bg-dark py-5">
         <LiveCryptoHomePage />
       </div>
-    </Card>
+    </section>
   );
 };
 

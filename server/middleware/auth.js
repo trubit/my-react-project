@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import { verifyToken } from "../utils/jwt.js";
 
+// NOTE: Middleware to protect routes and load user from JWT.
 // NOTE: Verifies the JWT in the Authorization header and loads the user onto req.user.
 export const requireAuth = async (req, res, next) => {
   try {

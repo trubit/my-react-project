@@ -1,5 +1,7 @@
 import FirstSectionHome from "../Homepage/FirstSectionHome";
 import SecondSectionHomePage from "../Homepage/SecondSectionHomePage";
+import FeaturesSection from "../Components/FeaturesSection";
+import ArbitrageSection from "../Components/ArbitrageSection";
 
 // Homepage composition.
 const Home = () => {
@@ -7,6 +9,8 @@ const Home = () => {
     <>
       <FirstSectionHome />
       <SecondSectionHomePage />
+      <ArbitrageSection />
+      <FeaturesSection />
     </>
   );
 };

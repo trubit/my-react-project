@@ -1,0 +1,198 @@
+.crypto-sidebar {
+  width: 100%;
+  max-width: 320px;
+  margin-left: auto;
+}
+
+.crypto-sidebar-shell {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.crypto-sidebar-section {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.crypto-section-label {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.crypto-like-section {
+  text-align: center;
+}
+
+.crypto-like-button {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 255, 159, 0.45);
+  background: rgba(0, 255, 159, 0.08);
+  color: #00ff9f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  transition: transform 0.18s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.crypto-like-button:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.06);
+  box-shadow: 0 0 16px rgba(0, 255, 159, 0.42);
+  border-color: #00ff9f;
+}
+
+.crypto-like-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.crypto-like-button.is-pressed {
+  transform: scale(0.94);
+}
+
+.crypto-like-count {
+  margin: 10px 0 0;
+  color: #aaaaaa;
+  font-size: 0.88rem;
+}
+
+.crypto-share-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.crypto-share-icons a {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  color: #ffffff;
+  background: linear-gradient(145deg, #1f1f1f, #141414);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.crypto-share-icons a:hover {
+  transform: translateY(-1px) scale(1.04);
+  border-color: rgba(0, 255, 159, 0.65);
+  box-shadow: 0 0 12px rgba(0, 255, 159, 0.25);
+}
+
+.crypto-related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.crypto-post-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #141414;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.crypto-post-card:hover {
+  transform: translateY(-2px) scale(1.01);
+  border-color: rgba(0, 255, 159, 0.55);
+  box-shadow: 0 0 14px rgba(0, 255, 159, 0.18);
+}
+
+.crypto-post-card.is-active {
+  border-color: #00ff9f;
+  box-shadow: 0 0 16px rgba(0, 255, 159, 0.22);
+}
+
+.crypto-post-visual {
+  position: relative;
+  height: 112px;
+  background: linear-gradient(135deg, #1d1d1d, #101010);
+}
+
+.crypto-post-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.crypto-post-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #252525, #121212);
+}
+
+.crypto-post-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 255, 159, 0.95);
+  color: #0f0f0f;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+}
+
+.crypto-post-content {
+  padding: 10px;
+}
+
+.crypto-post-content h4 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.crypto-post-content p {
+  margin: 0;
+  color: #aaaaaa;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.crypto-inline-note,
+.crypto-inline-error {
+  margin: 6px 0;
+  font-size: 0.8rem;
+}
+
+.crypto-inline-note {
+  color: #aaaaaa;
+}
+
+.crypto-inline-error {
+  color: #ff7b7b;
+}
+
+@media (max-width: 991px) {
+  .crypto-sidebar {
+    max-width: 100%;
+  }
+
+  .crypto-sidebar-shell {
+    position: static;
+  }
+}
