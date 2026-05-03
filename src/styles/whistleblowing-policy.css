@@ -1,0 +1,151 @@
+.whistleblowing-policy-page {
+  background:
+    radial-gradient(
+      900px 540px at 8% -10%,
+      rgba(0, 214, 160, 0.13),
+      rgba(0, 214, 160, 0) 66%
+    ),
+    radial-gradient(
+      980px 560px at 95% 10%,
+      rgba(66, 97, 116, 0.2),
+      rgba(66, 97, 116, 0) 72%
+    ),
+    #060b10;
+  min-height: 100vh;
+  padding: clamp(2rem, 4.8vw, 3.8rem) 0 clamp(2.2rem, 5.4vw, 4.4rem);
+}
+
+.whistleblowing-policy-wrap {
+  max-width: 1080px;
+}
+
+.whistleblowing-policy-card {
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
+    linear-gradient(180deg, rgba(10, 16, 22, 0.97), rgba(8, 13, 19, 0.99));
+  border: 1px solid rgba(130, 152, 168, 0.24);
+  border-radius: 24px;
+  box-shadow:
+    0 28px 58px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: clamp(1.45rem, 3.2vw, 2.4rem) clamp(1rem, 2.7vw, 2rem)
+    clamp(1.65rem, 3.6vw, 2.65rem);
+  color: #ebf2f7;
+}
+
+.whistleblowing-policy-title {
+  margin: 0;
+  color: #f7fbff;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-size: clamp(2rem, 3.7vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.whistleblowing-policy-section {
+  margin-top: 1.58rem;
+}
+
+.whistleblowing-policy-section h2 {
+  margin: 0 0 0.7rem;
+  color: #f6fbff;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-size: clamp(1.28rem, 1.55vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.014em;
+}
+
+.whistleblowing-policy-section p,
+.whistleblowing-policy-section li {
+  margin: 0;
+  color: #b8c2cc;
+  font-size: clamp(0.96rem, 0.96vw, 1.06rem);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.whistleblowing-policy-section p + p {
+  margin-top: 0.3rem;
+}
+
+.whistleblowing-policy-section ul,
+.whistleblowing-policy-section ol {
+  margin: 0.45rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.whistleblowing-policy-section li {
+  margin: 0.22rem 0;
+}
+
+.whistleblowing-policy-section li > ul,
+.whistleblowing-policy-section li > ol {
+  margin-top: 0.3rem;
+}
+
+.whistleblowing-policy-table-wrap {
+  margin-top: 0.72rem;
+  overflow-x: auto;
+}
+
+.whistleblowing-policy-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  background: rgba(7, 11, 16, 0.72);
+}
+
+.whistleblowing-policy-table th,
+.whistleblowing-policy-table td {
+  border-bottom: 1px solid rgba(107, 133, 152, 0.26);
+  padding: 0.84rem 0.7rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.whistleblowing-policy-table thead th {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f1f7fb;
+  font-size: clamp(0.9rem, 0.94vw, 1rem);
+  font-weight: 700;
+}
+
+.whistleblowing-policy-table tbody td {
+  color: #b8c2cc;
+  font-size: clamp(0.9rem, 0.9vw, 0.98rem);
+  line-height: 1.58;
+  font-weight: 500;
+}
+
+.whistleblowing-policy-table tbody td:first-child {
+  color: #ecf3f8;
+  font-weight: 700;
+  width: 30%;
+}
+
+@media (max-width: 991.98px) {
+  .whistleblowing-policy-wrap {
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .whistleblowing-policy-page {
+    padding: 1.25rem 0 2rem;
+  }
+
+  .whistleblowing-policy-card {
+    border-radius: 18px;
+    padding: 1.1rem 0.95rem 1.45rem;
+  }
+
+  .whistleblowing-policy-section {
+    margin-top: 1.28rem;
+  }
+
+  .whistleblowing-policy-table {
+    min-width: 640px;
+  }
+}

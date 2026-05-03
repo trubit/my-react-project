@@ -1,0 +1,117 @@
+﻿.compliance-policy-page {
+  background:
+    radial-gradient(980px 620px at 8% -10%, rgba(0, 214, 160, 0.15), rgba(0, 214, 160, 0) 66%),
+    radial-gradient(1020px 620px at 98% 8%, rgba(66, 97, 116, 0.23), rgba(66, 97, 116, 0) 72%),
+    #05090d;
+  min-height: 100vh;
+  padding: clamp(1.9rem, 4.7vw, 3.8rem) 0 clamp(2.25rem, 5.4vw, 4.6rem);
+}
+
+.compliance-policy-wrap {
+  max-width: 1080px;
+}
+
+.compliance-policy-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    linear-gradient(180deg, rgba(9, 15, 21, 0.975), rgba(7, 11, 16, 0.995));
+  border: 1px solid rgba(132, 156, 173, 0.25);
+  border-radius: 24px;
+  box-shadow:
+    0 30px 62px rgba(0, 0, 0, 0.44),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  color: #edf3f8;
+  padding: clamp(1.55rem, 3.3vw, 2.5rem) clamp(1.1rem, 2.9vw, 2.1rem)
+    clamp(1.72rem, 3.7vw, 2.8rem);
+}
+
+.compliance-policy-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 214, 160, 0.42), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.compliance-policy-title {
+  margin: 0 0 1rem;
+  color: #f7fbff;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-size: clamp(2rem, 3.8vw, 3.15rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.compliance-policy-intro {
+  margin: 0;
+  color: #bcc7d2;
+  font-size: clamp(0.98rem, 1vw, 1.1rem);
+  line-height: 1.74;
+  font-weight: 500;
+}
+
+.compliance-section {
+  margin-top: 1.6rem;
+}
+
+.compliance-section h2 {
+  margin: 0 0 0.7rem;
+  color: #f7fbff;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-size: clamp(1.28rem, 1.58vw, 1.92rem);
+  font-weight: 700;
+  line-height: 1.23;
+  letter-spacing: -0.014em;
+}
+
+.compliance-section p {
+  margin: 0;
+  color: #bcc7d2;
+  font-size: clamp(0.95rem, 0.98vw, 1.04rem);
+  line-height: 1.72;
+  font-weight: 500;
+}
+
+.compliance-section ul,
+.compliance-section ol {
+  margin: 0.48rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.compliance-section li {
+  margin: 0.24rem 0;
+  color: #bcc7d2;
+  font-size: clamp(0.95rem, 0.98vw, 1.04rem);
+  line-height: 1.68;
+}
+
+.compliance-section li > ul,
+.compliance-section li > ol {
+  margin-top: 0.34rem;
+}
+
+@media (max-width: 991.98px) {
+  .compliance-policy-wrap {
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .compliance-policy-page {
+    padding: 1.2rem 0 2rem;
+  }
+
+  .compliance-policy-card {
+    border-radius: 18px;
+    padding: 1.15rem 0.95rem 1.45rem;
+  }
+
+  .compliance-section {
+    margin-top: 1.3rem;
+  }
+}

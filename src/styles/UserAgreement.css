@@ -1,0 +1,182 @@
+.user-agreement-page {
+  background:
+    radial-gradient(980px 620px at 8% -10%, rgba(0, 214, 160, 0.16), rgba(0, 214, 160, 0) 66%),
+    radial-gradient(1020px 620px at 98% 8%, rgba(66, 97, 116, 0.23), rgba(66, 97, 116, 0) 72%),
+    #05090d;
+  min-height: 100vh;
+  padding: clamp(1.9rem, 4.7vw, 3.8rem) 0 clamp(2.25rem, 5.4vw, 4.6rem);
+}
+
+.user-agreement-wrap {
+  max-width: 1080px;
+}
+
+.user-agreement-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    linear-gradient(180deg, rgba(9, 15, 21, 0.975), rgba(7, 11, 16, 0.995));
+  border: 1px solid rgba(132, 156, 173, 0.25);
+  border-radius: 24px;
+  box-shadow:
+    0 30px 62px rgba(0, 0, 0, 0.44),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  color: #edf3f8;
+  padding: clamp(1.55rem, 3.3vw, 2.5rem) clamp(1.1rem, 2.9vw, 2.1rem)
+    clamp(1.72rem, 3.7vw, 2.8rem);
+}
+
+.user-agreement-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 214, 160, 0.42), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.user-agreement-title {
+  margin: 0 0 1rem;
+  color: #f7fbff;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-size: clamp(2rem, 3.8vw, 3.15rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.agreement-intro,
+.agreement-section p,
+.agreement-section li,
+.agreement-table {
+  color: #bcc7d2;
+  font-size: clamp(0.95rem, 0.98vw, 1.04rem);
+  line-height: 1.72;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.agreement-intro {
+  margin: 0;
+}
+
+.agreement-intro + .agreement-intro,
+.agreement-intro + .agreement-intro-list,
+.agreement-intro-list + .agreement-intro,
+.agreement-intro + .agreement-intro-link {
+  margin-top: 0.6rem;
+}
+
+.agreement-intro-link {
+  margin: 0;
+}
+
+.agreement-intro-link a,
+.agreement-section a {
+  color: #26e4b2;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.agreement-intro-link a:hover,
+.agreement-section a:hover {
+  color: #72f6d3;
+  text-decoration: underline;
+}
+
+.agreement-intro-list,
+.agreement-section ul,
+.agreement-section ol {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.agreement-section {
+  margin-top: 1.6rem;
+}
+
+.agreement-section h2 {
+  margin: 0 0 0.7rem;
+  color: #f7fbff;
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  font-size: clamp(1.28rem, 1.58vw, 1.92rem);
+  font-weight: 700;
+  line-height: 1.23;
+  letter-spacing: -0.014em;
+}
+
+.agreement-section p {
+  margin: 0;
+}
+
+.agreement-section p + p,
+.agreement-section p + ul,
+.agreement-section p + ol,
+.agreement-section ul + p,
+.agreement-section ol + p,
+.agreement-section ul + ul,
+.agreement-section ul + ol,
+.agreement-section ol + ul,
+.agreement-section ol + ol {
+  margin-top: 0.52rem;
+}
+
+.agreement-table-wrap {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+}
+
+.agreement-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  background: rgba(7, 11, 16, 0.74);
+}
+
+.agreement-table th,
+.agreement-table td {
+  border-bottom: 1px solid rgba(107, 133, 152, 0.26);
+  padding: 0.82rem 0.7rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.agreement-table thead th {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f1f7fb;
+  font-size: clamp(0.9rem, 0.94vw, 1rem);
+  font-weight: 700;
+}
+
+.agreement-table tbody td:first-child {
+  color: #ecf3f8;
+  font-weight: 700;
+  width: 36%;
+}
+
+@media (max-width: 991.98px) {
+  .user-agreement-wrap {
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .user-agreement-page {
+    padding: 1.2rem 0 2rem;
+  }
+
+  .user-agreement-card {
+    border-radius: 18px;
+    padding: 1.15rem 0.95rem 1.45rem;
+  }
+
+  .agreement-section {
+    margin-top: 1.3rem;
+  }
+
+  .agreement-table {
+    min-width: 620px;
+  }
+}
